@@ -1,18 +1,24 @@
 {
-  "name": "booktyper",
+  "name": "typey-boi",
+  "productName": "Typey Boi",
   "version": "0.0.1",
   "description": "Practice typing by reading a book.",
-  "repository": "https://github.com/Meebuhs/booktyper",
+  "repository": "https://github.com/Meebuhs/typey-boi",
+  "homepage": "./",
+  "main": "public/electron.js",
   "author": "Alex Sharpe",
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "parcel src/index.html",
-    "build": "parcel build src/index.html",
+    "dev": "parcel public/index.html --out-dir build",
+    "build": "parcel build public/index.html --out-dir build --public-url ./",
     "lint": "eslint src/**/*.{ts,tsx} && stylelint src/**/*.scss --fix",
     "precommit": "yarn prettier && yarn lint",
     "prettier": "prettier --write \"src/**/*.{ts,tsx,scss}\"",
-    "dist": "mkdir -p ./dist && cd build && zip -r ../dist/${npm_package_version}.zip *"
+    "electron": "electron .",
+    "postinstall": "electron-builder install-app-deps",
+    "pack": "electron-builder --dir",
+    "dist": "yarn build && electron-builder -w"
   },
   "dependencies": {},
   "devDependencies": {
@@ -20,6 +26,8 @@
     "@types/react-dom": "^16.9.8",
     "@typescript-eslint/eslint-plugin": "^3.6.1",
     "@typescript-eslint/parser": "^3.6.1",
+    "electron": "^9.1.0",
+    "electron-builder": "^22.7.0",
     "eslint": "^7.4.0",
     "eslint-plugin-react": "^7.20.3",
     "prettier": "^2.0.5",
@@ -29,5 +37,15 @@
     "stylelint": "^13.6.1",
     "stylelint-config-sass-guidelines": "^7.0.0",
     "typescript": "^3.9.6"
+  },
+  "build": {
+    "appId": "com.meebuhs.typey-boi",
+    "win": {
+      "target": "portable"
+    },
+    "files": [
+      "build",
+      "public"
+    ]
   }
 }

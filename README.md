@@ -1,13 +1,14 @@
-# Booktyper
+# Typey Boi
 
 Practice typing by reading a book.
 
 Built with:
 
-- Parcel
 - Typescript
 - React
 - Sass
+- Parcel
+- Electron
 
 Style-checking:
 
@@ -35,6 +36,8 @@ yarn
 | `yarn prettier` | Perform in-place prettier reformat.             |
 | `yarn precommit`| Runs lint and prettier.                         |
 | `yarn dist`     | Compresses the current build for distribution.  |
+| `yarn electron` | Starts electron.                                |
+| `yarn dist`     | Packages a distribution build using electron.   |
 
 ## License
 
