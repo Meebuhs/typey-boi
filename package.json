@@ -20,7 +20,9 @@
     "pack": "electron-builder --dir",
     "dist": "yarn build && electron-builder -w"
   },
-  "dependencies": {},
+  "dependencies": {
+    "components": "^0.1.0"
+  },
   "devDependencies": {
     "@types/react": "^16.9.43",
     "@types/react-dom": "^16.9.8",

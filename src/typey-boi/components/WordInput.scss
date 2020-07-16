@@ -1,0 +1,32 @@
+.current-line {
+  display: flex;
+  flex-direction: row;
+}
+
+.word {
+  display: flex;
+  flex-direction: row;
+  margin: 0.5rem;
+}
+
+@mixin letter {
+  font-family: 'Fira Code';
+  font-size: 1rem;
+}
+
+.future-letter {
+  @include letter;
+  color: grey;
+}
+
+.correct-letter {
+  @include letter;
+  color: green;
+  font-weight: bold;
+}
+
+.incorrect-letter {
+  @include letter;
+  color: red;
+  font-weight: bold;
+}
