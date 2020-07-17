@@ -10,4 +10,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - Added electron packaging.
  - Added ability to classify typed input as correct/incorrect.
  - Added ability to erase input with backspace.
- - Allow for completed words to be incorrect lengths.
+ - Allow for word inputs to be incorrect lengths.

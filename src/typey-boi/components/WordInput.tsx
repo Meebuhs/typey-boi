@@ -83,6 +83,40 @@ export function WordInput() {
                       {char}
                     </div>
                   )
+                } else if (lineInput[wordIndex].length > charIndex && charIndex === word.length - 1) {
+                  let status = ''
+                  const letter = lineInput[wordIndex][charIndex]
+                  if (letter === char) {
+                    status = 'correct-letter'
+                  } else {
+                    status = 'incorrect-letter'
+                  }
+                  const extraContent = (
+                    <>
+                      {lineInput[wordIndex]
+                        .split('')
+                        .slice(charIndex + 1, lineInput[wordIndex].length)
+                        .map((extraLetter: string, index: number) => (
+                          <div
+                            className={'extra-letter'}
+                            key={`word-${wordIndex}-extra-${index}`}
+                          >
+                            {extraLetter}
+                          </div>
+                        ))}
+                    </>
+                  )
+                  return (
+                    <>
+                      <div
+                        className={`${status}`}
+                        key={`letter-${wordIndex}-${charIndex}`}
+                      >
+                        {letter}
+                      </div>
+                      {extraContent}
+                    </>
+                  )
                 } else {
                   // completed letters
                   const letter = lineInput[wordIndex][charIndex]
