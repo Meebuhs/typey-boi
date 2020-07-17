@@ -63,10 +63,17 @@ export function WordInput(): React.ReactElement {
       <div className="current-line">
         {currentLine.map((word: string, wordIndex: number) => {
           if (wordIndex > currentWordIndex) {
-            return <FutureWord word={word} wordIndex={wordIndex} />
+            return (
+              <FutureWord
+                key={`w${wordIndex}`}
+                word={word}
+                wordIndex={wordIndex}
+              />
+            )
           } else if (wordIndex == currentWordIndex) {
             return (
               <CurrentWord
+                key={`w${wordIndex}`}
                 word={word}
                 wordIndex={wordIndex}
                 currentLetterIndex={currentLetterIndex}
@@ -76,6 +83,7 @@ export function WordInput(): React.ReactElement {
           } else {
             return (
               <CompletedWord
+                key={`w${wordIndex}`}
                 word={word}
                 wordIndex={wordIndex}
                 lineInput={lineInput}

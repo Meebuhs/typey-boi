@@ -8,12 +8,9 @@ interface IProps {
 
 export function FutureWord({ word, wordIndex }: IProps): React.ReactElement {
   return (
-    <div className="word" key={`word-${wordIndex}`}>
+    <div className="word">
       {word.split('').map((letter: string, letterIndex: number) => (
-        <FutureLetter
-          key={`w${wordIndex}-l${letterIndex}`}
-          letter={letter}
-        />
+        <FutureLetter key={`w${wordIndex}-l${letterIndex}`} letter={letter} />
       ))}
     </div>
   )
