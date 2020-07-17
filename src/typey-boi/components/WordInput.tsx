@@ -13,13 +13,33 @@ export function WordInput() {
   const [currentLetterIndex, setCurrentLetterIndex] = useState(0)
 
   useKeyPress((key) => {
-    if (key === ' ') {
-      const newWordIndex = currentWordIndex + 1
-      setCurrentWordIndex(newWordIndex)
+    if (key === 'Backspace') {
+      if (lineInput.length === currentWordIndex) {
+        // nothing in current word, go back one
+        setCurrentWordIndex(lineInput.length - 1)
+        setCurrentLetterIndex(lineInput[lineInput.length - 1].length)
+      } else {
+        // remove a character
+        setCurrentLetterIndex(currentLetterIndex - 1)
+
+        const newInput = [...lineInput]
+        let [newWord] = lineInput.slice(-1)
+        newWord = newWord.slice(0, -1)
+
+        if (newWord.length) {
+          // removed last character of word, remove it
+          newInput[newInput.length - 1] = newWord
+          setLineIput(newInput)
+        } else {
+          setLineIput(lineInput.slice(0, -1))
+        }
+      }
+    
+    } else if (key === ' ') {
+      setCurrentWordIndex(currentWordIndex + 1)
       setCurrentLetterIndex(0)
     } else {
       const newInput = [...lineInput]
-      console.log(`${newInput.length}, ${currentWordIndex}`)
       if (newInput.length > currentWordIndex) {
         let [newWord] = lineInput.slice(-1)
         newWord = newWord + key
@@ -28,9 +48,7 @@ export function WordInput() {
         newInput.push([key])
       }
       setLineIput(newInput)
-
-      const newLetterIndex = currentLetterIndex + 1
-      setCurrentLetterIndex(newLetterIndex)
+      setCurrentLetterIndex(currentLetterIndex + 1)
     }
   })
 
@@ -67,7 +85,7 @@ export function WordInput() {
                     </div>
                   )
                 } else {
-                  // complete letters
+                  // completed letters
                   const letter = lineInput[wordIndex][charIndex]
                   if (charIndex < currentLetterIndex) {
                     if (letter === char) {

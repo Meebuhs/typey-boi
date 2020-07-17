@@ -21,8 +21,8 @@ Style-checking:
 ## Development
 
 ```
-git clone https://github.com/Meebuhs/booktyper
-cd booktyper
+git clone https://github.com/Meebuhs/typey-boi
+cd typey-boi
 yarn
 ```
 
