@@ -14,7 +14,8 @@
   font-size: 1rem;
 }
 
-.future-letter {
+.future-letter,
+.missed-letter {
   @include letter;
   color: grey;
 }
@@ -25,7 +26,8 @@
   font-weight: bold;
 }
 
-.incorrect-letter {
+.incorrect-letter,
+.extra-letter {
   @include letter;
   color: red;
   font-weight: bold;

@@ -34,7 +34,6 @@ export function WordInput() {
           setLineIput(lineInput.slice(0, -1))
         }
       }
-    
     } else if (key === ' ') {
       setCurrentWordIndex(currentWordIndex + 1)
       setCurrentLetterIndex(0)
@@ -112,14 +111,59 @@ export function WordInput() {
                 } else {
                   status = 'incorrect-letter'
                 }
-                return (
-                  <div
-                    className={`${status}`}
-                    key={`letter-${wordIndex}-${charIndex}`}
-                  >
-                    {letter}
-                  </div>
-                )
+                const inputLength = lineInput[wordIndex].length
+                if (inputLength > charIndex && charIndex === word.length - 1) {
+                  const extraContent = (
+                    <>
+                      {lineInput[wordIndex]
+                        .split('')
+                        .slice(charIndex + 1, inputLength)
+                        .map((extraLetter: string, index: number) => (
+                          <div
+                            className={'extra-letter'}
+                            key={`word-${wordIndex}-extra-${index}`}
+                          >
+                            {extraLetter}
+                          </div>
+                        ))}
+                    </>
+                  )
+                  return (
+                    <>
+                      <div
+                        className={`${status}`}
+                        key={`letter-${wordIndex}-${charIndex}`}
+                      >
+                        {letter}
+                      </div>
+                      {extraContent}
+                    </>
+                  )
+                } else if (
+                  inputLength < word.length &&
+                  charIndex === inputLength
+                ) {
+                  return word
+                    .split('')
+                    .slice(charIndex, word.length)
+                    .map((missedLetter: string, index: number) => (
+                      <div
+                        className={'missed-letter'}
+                        key={`word-${wordIndex}-missed-${index}`}
+                      >
+                        {missedLetter}
+                      </div>
+                    ))
+                } else {
+                  return (
+                    <div
+                      className={`${status}`}
+                      key={`letter-${wordIndex}-${charIndex}`}
+                    >
+                      {letter}
+                    </div>
+                  )
+                }
               }
             })}
           </div>
