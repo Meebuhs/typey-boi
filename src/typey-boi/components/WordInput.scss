@@ -36,6 +36,27 @@
   font-weight: bold;
 }
 
+.current-letter {
+  @include letter;
+  animation: letter-indicator 0.75s ease-out 0s infinite alternate;
+  background-color: grey;
+  color: grey;
+}
+
+@keyframes letter-indicator {
+  from {
+    background-color: white;
+  }
+
+  25% {
+    background-color: white;
+  }
+
+  to {
+    background-color: grey;
+  }
+}
+
 .incorrect-letter,
 .extra-letter {
   @include letter;

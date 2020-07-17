@@ -12,3 +12,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - Added ability to erase input with backspace.
  - Allow for word inputs to be incorrect lengths.
  - Added indicator for incorrect words.
+ - Added indicator for current typing position.

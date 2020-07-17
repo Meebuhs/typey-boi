@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { CorrectLetter } from './CorrectLetter'
+import { CurrentLetter } from './CurrentLetter'
 import { IncorrectLetter } from './IncorrectLetter'
 import { ExtraLetter } from './ExtraLetter'
 import { FutureLetter } from './FutureLetter'
@@ -38,7 +39,14 @@ export function CurrentWord({
             )
         }
 
-        if (
+        if (letterIndex === currentLetterIndex) {
+          return (
+            <CurrentLetter
+              key={`w${wordIndex}-l${letterIndex}`}
+              letter={expectedLetter}
+            />
+          )
+        } else if (
           lineInput.length == wordIndex ||
           letterIndex >= currentLetterIndex
         ) {
