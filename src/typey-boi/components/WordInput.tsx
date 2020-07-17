@@ -35,6 +35,10 @@ export function WordInput() {
         }
       }
     } else if (key === ' ') {
+      if (lineInput.length === currentWordIndex) {
+        lineInput.push("")
+      }
+      
       setCurrentWordIndex(currentWordIndex + 1)
       setCurrentLetterIndex(0)
     } else {
