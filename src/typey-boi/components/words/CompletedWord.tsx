@@ -1,36 +1,38 @@
 import * as React from 'react'
-import { CorrectLetter } from './CorrectLetter'
-import { IncorrectLetter } from './IncorrectLetter'
-import { ExtraLetter } from './ExtraLetter'
-import { MissedLetter } from './MissedLetter'
-import { ErrorIndicator } from './ErrorIndicator'
+import { CorrectLetter } from '../letters/CorrectLetter'
+import { IncorrectLetter } from '../letters/IncorrectLetter'
+import { ExtraLetter } from '../letters/ExtraLetter'
+import { MissedLetter } from '../letters/MissedLetter'
+import { ErrorIndicator } from '../ErrorIndicator'
 
 interface IProps {
   word: string
   wordIndex: number
-  lineInput: string[]
+  lineIndex: number
+  wordInput: string
 }
 
 export function CompletedWord({
   word,
+  lineIndex,
   wordIndex,
-  lineInput,
+  wordInput,
 }: IProps): React.ReactElement {
   let error = false
 
   return (
     <div className="word">
       {word.split('').map((expectedLetter: string, letterIndex: number) => {
-        const typedLetter = lineInput[wordIndex][letterIndex]
+        const typedLetter = wordInput[letterIndex]
         const letter =
           expectedLetter === typedLetter ? (
             <CorrectLetter
-              key={`w${wordIndex}-l${letterIndex}`}
+              key={`ln${lineIndex}-w${wordIndex}-lt${letterIndex}`}
               letter={typedLetter}
             />
           ) : (
             <IncorrectLetter
-              key={`w${wordIndex}-l${letterIndex}`}
+              key={`ln${lineIndex}-w${wordIndex}-lt${letterIndex}`}
               letter={typedLetter}
             />
           )
@@ -38,9 +40,9 @@ export function CompletedWord({
         if (expectedLetter !== typedLetter) {
           error = true
         }
-        const inputLength = lineInput[wordIndex].length
+        const inputLength = wordInput.length
         if (inputLength > letterIndex && letterIndex === word.length - 1) {
-          const extraLetters = lineInput[wordIndex]
+          const extraLetters = wordInput
             .split('')
             .slice(letterIndex + 1, inputLength)
           if (extraLetters.length) {
@@ -48,9 +50,9 @@ export function CompletedWord({
           }
           const extraContent = (
             <>
-              {extraLetters.map((extraLetter: string, index: number) => (
+              {extraLetters.map((extraLetter: string, extraIndex: number) => (
                 <ExtraLetter
-                  key={`w${wordIndex}-el${index}`}
+                  key={`ln${lineIndex}-w${wordIndex}-elt${extraIndex}`}
                   letter={extraLetter}
                 />
               ))}
@@ -67,9 +69,9 @@ export function CompletedWord({
           return word
             .split('')
             .slice(letterIndex, word.length)
-            .map((missedLetter: string) => (
+            .map((missedLetter: string, missedIndex: number) => (
               <MissedLetter
-                key={`w${wordIndex}-l${letterIndex}`}
+                key={`ln${lineIndex}-w${wordIndex}-mlt${missedIndex}`}
                 letter={missedLetter}
               />
             ))
@@ -77,7 +79,9 @@ export function CompletedWord({
           return letter
         }
       })}
-      {error ? <ErrorIndicator key={`error-w${wordIndex}`} /> : null}
+      {error ? (
+        <ErrorIndicator key={`error-ln${lineIndex}-w${wordIndex}`} />
+      ) : null}
     </div>
   )
 }

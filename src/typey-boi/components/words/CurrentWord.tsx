@@ -1,19 +1,21 @@
 import * as React from 'react'
-import { CorrectLetter } from './CorrectLetter'
-import { CurrentLetter } from './CurrentLetter'
-import { IncorrectLetter } from './IncorrectLetter'
-import { ExtraLetter } from './ExtraLetter'
-import { FutureLetter } from './FutureLetter'
+import { CorrectLetter } from '../letters/CorrectLetter'
+import { CurrentLetter } from '../letters/CurrentLetter'
+import { IncorrectLetter } from '../letters/IncorrectLetter'
+import { ExtraLetter } from '../letters/ExtraLetter'
+import { FutureLetter } from '../letters/FutureLetter'
 
 interface IProps {
   word: string
   wordIndex: number
+  lineIndex: number
   currentLetterIndex: number
   lineInput: string[]
 }
 
 export function CurrentWord({
   word,
+  lineIndex,
   wordIndex,
   currentLetterIndex,
   lineInput,
@@ -28,12 +30,12 @@ export function CurrentWord({
           letter =
             expectedLetter === typedLetter ? (
               <CorrectLetter
-                key={`w${wordIndex}-l${letterIndex}`}
+                key={`ln${lineIndex}-w${wordIndex}-lt${letterIndex}`}
                 letter={typedLetter}
               />
             ) : (
               <IncorrectLetter
-                key={`w${wordIndex}-l${letterIndex}`}
+                key={`ln${lineIndex}-w${wordIndex}-lt${letterIndex}`}
                 letter={typedLetter}
               />
             )
@@ -42,7 +44,7 @@ export function CurrentWord({
         if (letterIndex === currentLetterIndex) {
           return (
             <CurrentLetter
-              key={`w${wordIndex}-l${letterIndex}`}
+              key={`ln${lineIndex}-w${wordIndex}-lt${letterIndex}`}
               letter={expectedLetter}
             />
           )
@@ -52,7 +54,7 @@ export function CurrentWord({
         ) {
           return (
             <FutureLetter
-              key={`w${wordIndex}-l${letterIndex}`}
+              key={`ln${lineIndex}-w${wordIndex}-lt${letterIndex}`}
               letter={expectedLetter}
             />
           )
@@ -65,9 +67,9 @@ export function CurrentWord({
               {lineInput[wordIndex]
                 .split('')
                 .slice(letterIndex + 1, lineInput[wordIndex].length)
-                .map((extraLetter: string, index: number) => (
+                .map((extraLetter: string, extraIndex: number) => (
                   <ExtraLetter
-                    key={`w${wordIndex}-el${index}`}
+                    key={`ln${lineIndex}-w${wordIndex}-elt${extraIndex}`}
                     letter={extraLetter}
                   />
                 ))}

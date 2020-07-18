@@ -1,4 +1,12 @@
-.current-line {
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.completed-line,
+.current-line,
+.future-line {
   display: flex;
   flex-direction: row;
 }

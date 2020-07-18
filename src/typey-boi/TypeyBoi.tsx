@@ -1,5 +1,5 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { WordInput } from './components/WordInput'
+import { TypeyBoi } from './containers/TypeyBoi'
 
-ReactDOM.render(<WordInput />, document.getElementById('root'))
+ReactDOM.render(<TypeyBoi />, document.getElementById('root'))
