@@ -27,9 +27,14 @@ for (const word of text.split(' ')) {
   }
 }
 
+const inputs = []
+for (const line of lines) {
+  inputs.push(new Array(line.length).fill(''))
+}
+
 export const initialState: IState = {
   lines: lines,
-  lineInputs: [[]],
+  lineInputs: inputs,
   currentLineIndex: 0,
   currentWordIndex: 0,
   currentLetterIndex: 0,

@@ -25,21 +25,19 @@ export function CurrentWord({
       {word.split('').map((expectedLetter: string, letterIndex: number) => {
         let typedLetter: string
         let letter: JSX.Element
-        if (lineInput.length !== wordIndex) {
-          typedLetter = lineInput[wordIndex][letterIndex]
-          letter =
-            expectedLetter === typedLetter ? (
-              <CorrectLetter
-                key={`ln${lineIndex}-w${wordIndex}-lt${letterIndex}`}
-                letter={typedLetter}
-              />
-            ) : (
-              <IncorrectLetter
-                key={`ln${lineIndex}-w${wordIndex}-lt${letterIndex}`}
-                letter={typedLetter}
-              />
-            )
-        }
+        typedLetter = lineInput[wordIndex][letterIndex]
+        letter =
+          expectedLetter === typedLetter ? (
+            <CorrectLetter
+              key={`ln${lineIndex}-w${wordIndex}-lt${letterIndex}`}
+              letter={typedLetter}
+            />
+          ) : (
+            <IncorrectLetter
+              key={`ln${lineIndex}-w${wordIndex}-lt${letterIndex}`}
+              letter={typedLetter}
+            />
+          )
 
         if (letterIndex === currentLetterIndex) {
           return (
@@ -48,10 +46,7 @@ export function CurrentWord({
               letter={expectedLetter}
             />
           )
-        } else if (
-          lineInput.length == wordIndex ||
-          letterIndex >= currentLetterIndex
-        ) {
+        } else if ( letterIndex > currentLetterIndex) {
           return (
             <FutureLetter
               key={`ln${lineIndex}-w${wordIndex}-lt${letterIndex}`}
@@ -62,6 +57,7 @@ export function CurrentWord({
           lineInput[wordIndex].length > letterIndex &&
           letterIndex === word.length - 1
         ) {
+          // last letter and there is extra input to display
           const extraContent = (
             <>
               {lineInput[wordIndex]

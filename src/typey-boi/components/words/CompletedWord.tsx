@@ -40,8 +40,10 @@ export function CompletedWord({
         if (expectedLetter !== typedLetter) {
           error = true
         }
+
         const inputLength = wordInput.length
         if (inputLength > letterIndex && letterIndex === word.length - 1) {
+          // last letter and there is extra input to display
           const extraLetters = wordInput
             .split('')
             .slice(letterIndex + 1, inputLength)
@@ -66,6 +68,7 @@ export function CompletedWord({
             </>
           )
         } else if (inputLength < word.length && letterIndex === inputLength) {
+          // last typed letter but there are more letters in the word
           return word
             .split('')
             .slice(letterIndex, word.length)

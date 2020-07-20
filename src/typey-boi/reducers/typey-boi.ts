@@ -19,50 +19,40 @@ export const reducer = (
   } = state
   switch (action.type) {
     case REMOVE_CHARACTER: {
-      if (
-        !(
-          currentLineIndex === 0 &&
-          currentWordIndex === 0 &&
-          currentLetterIndex === 0
-        )
+      if 
+        (
+          currentLineIndex !== 0 ||
+          currentWordIndex !== 0 ||
+          currentLetterIndex !== 0
       ) {
-        if (lineInputs[currentLineIndex].length === 0) {
+        if (currentWordIndex === 0 && currentLetterIndex === 0) {
           // nothing in current line, go back one
           const newLineIndex = currentLineIndex - 1
           const newWordIndex = lineInputs[newLineIndex].length - 1
           const newLetterIndex = lineInputs[newLineIndex][newWordIndex].length
-          const newInput = lineInputs.slice(0, -1)
 
           return {
             ...state,
-            lineInputs: newInput,
             currentLineIndex: newLineIndex,
             currentWordIndex: newWordIndex,
             currentLetterIndex: newLetterIndex,
           }
-        } else if (lineInputs[currentLineIndex].length === currentWordIndex) {
+        } else if (lineInputs[currentLineIndex][currentWordIndex].length === 0) {
           // nothing in current word, go back one
-          const currentLine = lineInputs[currentLineIndex]
-
           return {
             ...state,
-            currentWordIndex: currentLine.length - 1,
-            currentLetterIndex: currentLine[currentLine.length - 1].length,
+            currentWordIndex: currentWordIndex - 1,
+            currentLetterIndex: lineInputs[currentLineIndex][currentWordIndex - 1].length,
           }
         } else {
           // remove a character
-          const newLine = [...lineInputs[currentLineIndex]]
-          let [newWord] = newLine.slice(-1)
-          newWord = newWord.slice(0, -1)
           const newInput = [...lineInputs]
+          const newLine = [...newInput[currentLineIndex]]
+          let [newWord] = newLine.slice(currentWordIndex, currentWordIndex + 1)
+          newWord = newWord.slice(0, -1)
 
-          if (newWord.length) {
-            newLine[newLine.length - 1] = newWord
-            newInput[currentLineIndex] = newLine
-          } else {
-            // removed last character of word, remove it
-            newInput[currentLineIndex] = newInput[currentLineIndex].slice(0, -1)
-          }
+          newLine[currentWordIndex] = newWord
+          newInput[currentLineIndex] = newLine
 
           return {
             ...state,
@@ -75,22 +65,10 @@ export const reducer = (
       }
     }
     case COMPLETE_WORD: {
-      const newInput = [...lineInputs]
-
-      if (lineInputs[currentLineIndex].length === currentWordIndex) {
-        // catch empty words
-        const newLine = [...lineInputs[currentLineIndex]]
-        newLine.push('')
-        newInput[currentLineIndex] = newLine
-      }
-
-      if (lines[currentLineIndex].length - 1 == currentWordIndex) {
+      if (lines[currentLineIndex].length - 1 === currentWordIndex) {
         // finished line
-        newInput.push([])
-
         return {
           ...state,
-          lineInputs: newInput,
           currentLineIndex: currentLineIndex + 1,
           currentWordIndex: 0,
           currentLetterIndex: 0,
@@ -98,22 +76,18 @@ export const reducer = (
       } else {
         return {
           ...state,
-          lineInputs: newInput,
           currentWordIndex: currentWordIndex + 1,
           currentLetterIndex: 0,
         }
       }
     }
     case ADD_CHARACTER: {
-      const newLine = [...lineInputs[currentLineIndex]]
-      if (newLine.length > currentWordIndex) {
-        let [newWord] = newLine.slice(-1)
-        newWord = newWord + action.payload.character
-        newLine[newLine.length - 1] = newWord
-      } else {
-        newLine.push(action.payload.character)
-      }
       const newInput = [...lineInputs]
+      const newLine = [...newInput[currentLineIndex]]
+      let [newWord] = newLine.slice(currentWordIndex, currentWordIndex + 1)
+      newWord = newWord + action.payload.character
+      
+      newLine[currentWordIndex] = newWord
       newInput[currentLineIndex] = newLine
 
       return {
