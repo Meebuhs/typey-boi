@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { CompletedWord } from 'words/CompletedWord'
+import { CompletedWord } from 'components/words/CompletedWord'
 
 interface IProps {
   line: string[]

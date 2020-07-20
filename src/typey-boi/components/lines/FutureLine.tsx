@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { FutureWord } from 'words/FutureWord'
+import { FutureWord } from 'components/words/FutureWord'
 
 interface IProps {
   line: string[]

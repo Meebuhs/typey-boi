@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { FutureLetter } from 'letters/FutureLetter'
+import { FutureLetter } from 'components/letters/FutureLetter'
 
 interface IProps {
   word: string

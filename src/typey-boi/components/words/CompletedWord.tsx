@@ -1,8 +1,8 @@
 import * as React from 'react'
-import { CorrectLetter } from 'letters/CorrectLetter'
-import { IncorrectLetter } from 'letters/IncorrectLetter'
-import { ExtraLetter } from 'letters/ExtraLetter'
-import { MissedLetter } from 'letters/MissedLetter'
+import { CorrectLetter } from 'components/letters/CorrectLetter'
+import { IncorrectLetter } from 'components/letters/IncorrectLetter'
+import { ExtraLetter } from 'components/letters/ExtraLetter'
+import { MissedLetter } from 'components/letters/MissedLetter'
 import { ErrorIndicator } from 'components/ErrorIndicator'
 
 interface IProps {

@@ -1,7 +1,7 @@
 import * as React from 'react'
-import { FutureWord } from 'words/FutureWord'
-import { CompletedWord } from 'words/CompletedWord'
-import { CurrentWord } from 'words/CurrentWord'
+import { FutureWord } from 'components/words/FutureWord'
+import { CompletedWord } from 'components/words/CompletedWord'
+import { CurrentWord } from 'components/words/CurrentWord'
 
 interface IProps {
   line: string[]

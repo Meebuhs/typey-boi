@@ -21,19 +21,27 @@
     "dist": "yarn build && electron-builder -w"
   },
   "alias": {
-    "letters": "./src/typey-boi/components/letters",
-    "lines": "./src/typey-boi/components/lines",
-    "words": "./src/typey-boi/components/words",
+    "actions": "./src/typey-boi/actions",
     "components": "./src/typey-boi/components",
+    "constants": "./src/typey-boi/constants",
     "containers": "./src/typey-boi/containers",
-    "hooks": "./src/typey-boi/hooks"
+    "contexts": "./src/typey-boi/contexts",
+    "hooks": "./src/typey-boi/hooks",
+    "models": "./src/typey-boi/models",
+    "reducers": "./src/typey-boi/reducers",
+    "store": "./src/typey-boi/store"
   },
   "dependencies": {
-    "components": "^0.1.0"
+    "actions": "^1.3.0",
+    "components": "^0.1.0",
+    "contexts": "^0.0.0",
+    "src": "^1.1.2",
+    "store": "^2.0.12"
   },
   "devDependencies": {
     "@types/react": "^16.9.43",
     "@types/react-dom": "^16.9.8",
+    "@types/react-redux": "^7.1.9",
     "@typescript-eslint/eslint-plugin": "^3.6.1",
     "@typescript-eslint/parser": "^3.6.1",
     "electron": "^9.1.0",
@@ -43,6 +51,8 @@
     "prettier": "^2.0.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-redux": "^7.2.0",
+    "redux": "^4.0.5",
     "sass": "^1.26.10",
     "stylelint": "^13.6.1",
     "stylelint-config-sass-guidelines": "^7.0.0",

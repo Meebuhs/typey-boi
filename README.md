@@ -6,6 +6,7 @@ Built with:
 
 - Typescript
 - React
+- Redux
 - Sass
 - Parcel
 - Electron

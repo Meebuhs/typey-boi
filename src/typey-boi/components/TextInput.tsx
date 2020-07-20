@@ -1,100 +1,31 @@
 import * as React from 'react'
-import { useState } from 'react'
 import useKeyPress from 'hooks/useKeyPress'
 import './TextInput.scss'
-import { CurrentLine } from 'lines/CurrentLine'
-import { FutureLine } from 'lines/FutureLine'
-import { CompletedLine } from 'lines/CompletedLine'
+import { CurrentLine } from 'components/lines/CurrentLine'
+import { FutureLine } from 'components/lines/FutureLine'
+import { CompletedLine } from 'components/lines/CompletedLine'
+import { removeCharacter, completeWord, addCharacter } from 'actions/actions'
+import { useSelector, useDispatch } from 'react-redux'
+import { IState } from 'models/typey-boi'
 
-interface IProps {
-  lines: string[][]
-}
-
-export function TextInput({ lines }: IProps): React.ReactElement {
-  const [lineInputs, setLineInputs] = useState([[]])
-  const [currentLineIndex, setCurrentLineIndex] = useState(0)
-  const [currentWordIndex, setCurrentWordIndex] = useState(0)
-  const [currentLetterIndex, setCurrentLetterIndex] = useState(0)
+export function TextInput(): React.ReactElement {
+  const selectState = (state: IState) => state
+  const {
+    lines,
+    lineInputs,
+    currentLineIndex,
+    currentWordIndex,
+    currentLetterIndex,
+  } = useSelector(selectState)
+  const dispatch = useDispatch()
 
   useKeyPress((key: string) => {
     if (key === 'Backspace') {
-      if (
-        !(
-          currentLineIndex === 0 &&
-          currentWordIndex === 0 &&
-          currentLetterIndex === 0
-        )
-      ) {
-        if (lineInputs[currentLineIndex].length === 0) {
-          // nothing in current line, go back one
-          const newLineIndex = currentLineIndex - 1
-          const newWordIndex = lineInputs[newLineIndex].length - 1
-          setCurrentWordIndex(newWordIndex)
-          setCurrentLineIndex(newLineIndex)
-          setCurrentLetterIndex(lineInputs[newLineIndex][newWordIndex].length)
-
-          const newInput = [...lineInputs]
-          setLineInputs(newInput.slice(0, -1))
-        } else if (lineInputs[currentLineIndex].length === currentWordIndex) {
-          // nothing in current word, go back one
-          const currentLine = lineInputs[currentLineIndex]
-          setCurrentWordIndex(currentLine.length - 1)
-          setCurrentLetterIndex(currentLine[currentLine.length - 1].length)
-        } else {
-          // remove a character
-          setCurrentLetterIndex(currentLetterIndex - 1)
-
-          const newLine = [...lineInputs[currentLineIndex]]
-          let [newWord] = newLine.slice(-1)
-          newWord = newWord.slice(0, -1)
-          const newInput = [...lineInputs]
-
-          if (newWord.length) {
-            newLine[newLine.length - 1] = newWord
-            newInput[currentLineIndex] = newLine
-            setLineInputs(newInput)
-          } else {
-            // removed last character of word, remove it
-            newInput[currentLineIndex] = newInput[currentLineIndex].slice(0, -1)
-            setLineInputs(newInput)
-          }
-        }
-      }
+      dispatch(removeCharacter())
     } else if (key === ' ') {
-      const newInput = [...lineInputs]
-
-      if (lineInputs[currentLineIndex].length === currentWordIndex) {
-        // catch empty words
-        const newLine = [...lineInputs[currentLineIndex]]
-        newLine.push('')
-        newInput[currentLineIndex] = newLine
-      }
-
-      if (lines[currentLineIndex].length - 1 == currentWordIndex) {
-        // finished line
-        newInput.push([])
-        setLineInputs(newInput)
-        setCurrentWordIndex(0)
-        setCurrentLetterIndex(0)
-        setCurrentLineIndex(currentLineIndex + 1)
-      } else {
-        setLineInputs(newInput)
-        setCurrentWordIndex(currentWordIndex + 1)
-        setCurrentLetterIndex(0)
-      }
+      dispatch(completeWord())
     } else {
-      const newLine = [...lineInputs[currentLineIndex]]
-      if (newLine.length > currentWordIndex) {
-        let [newWord] = newLine.slice(-1)
-        newWord = newWord + key
-        newLine[newLine.length - 1] = newWord
-      } else {
-        newLine.push([key])
-      }
-      const newInput = [...lineInputs]
-      newInput[currentLineIndex] = newLine
-      setLineInputs(newInput)
-      setCurrentLetterIndex(currentLetterIndex + 1)
+      dispatch(addCharacter(key))
     }
   })
 
