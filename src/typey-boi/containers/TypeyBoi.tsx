@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { TextInput } from '../components/TextInput'
+import { TextInput } from 'components/TextInput'
 
 const text = 'This is placeholder text, it will be replaced later in development. \
 This is placeholder text, it will be replaced later in development. \

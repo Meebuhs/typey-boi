@@ -20,6 +20,14 @@
     "pack": "electron-builder --dir",
     "dist": "yarn build && electron-builder -w"
   },
+  "alias": {
+    "letters": "./src/typey-boi/components/letters",
+    "lines": "./src/typey-boi/components/lines",
+    "words": "./src/typey-boi/components/words",
+    "components": "./src/typey-boi/components",
+    "containers": "./src/typey-boi/containers",
+    "hooks": "./src/typey-boi/hooks"
+  },
   "dependencies": {
     "components": "^0.1.0"
   },

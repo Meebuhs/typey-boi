@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { CorrectLetter } from '../letters/CorrectLetter'
-import { IncorrectLetter } from '../letters/IncorrectLetter'
-import { ExtraLetter } from '../letters/ExtraLetter'
-import { MissedLetter } from '../letters/MissedLetter'
-import { ErrorIndicator } from '../ErrorIndicator'
+import { CorrectLetter } from 'letters/CorrectLetter'
+import { IncorrectLetter } from 'letters/IncorrectLetter'
+import { ExtraLetter } from 'letters/ExtraLetter'
+import { MissedLetter } from 'letters/MissedLetter'
+import { ErrorIndicator } from 'components/ErrorIndicator'
 
 interface IProps {
   word: string

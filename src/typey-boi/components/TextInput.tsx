@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { useState } from 'react'
-import useKeyPress from '../hooks/useKeyPress'
+import useKeyPress from 'hooks/useKeyPress'
 import './TextInput.scss'
-import { CurrentLine } from './lines/CurrentLine'
-import { FutureLine } from './lines/FutureLine'
-import { CompletedLine } from './lines/CompletedLine'
+import { CurrentLine } from 'lines/CurrentLine'
+import { FutureLine } from 'lines/FutureLine'
+import { CompletedLine } from 'lines/CompletedLine'
 
 interface IProps {
   lines: string[][]
