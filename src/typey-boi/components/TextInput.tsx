@@ -4,7 +4,7 @@ import './TextInput.scss'
 import { CurrentParagraph } from 'components/paragraphs/CurrentParagraph'
 import { FutureParagraph } from 'components/paragraphs/FutureParagraph'
 import { CompletedParagraph } from 'components/paragraphs/CompletedParagraph'
-import { removeCharacter, completeWord, addCharacter } from 'actions/actions'
+import { removeCharacter, completeWord, addCharacter, completeParagraph } from 'actions/actions'
 import { useSelector, useDispatch } from 'react-redux'
 import { IState } from 'models/typey-boi'
 
@@ -22,6 +22,8 @@ export function TextInput(): React.ReactElement {
   useKeyPress((key: string) => {
     if (key === 'Backspace') {
       dispatch(removeCharacter())
+    } else if (key === 'Enter') {
+      dispatch(completeParagraph())
     } else if (key === ' ') {
       dispatch(completeWord())
     } else {

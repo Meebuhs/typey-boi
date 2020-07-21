@@ -42,31 +42,25 @@ export function CompletedWord({
         }
 
         const inputLength = wordInput.length
-        if (inputLength > letterIndex && letterIndex === word.length - 1) {
-          // last letter and there is extra input to display
-          const extraLetters = wordInput
-            .split('')
-            .slice(letterIndex + 1, inputLength)
-          if (extraLetters.length) {
-            error = true
-          }
-          const extraContent = (
-            <>
-              {extraLetters.map((extraLetter: string, extraIndex: number) => (
+      if (
+        inputLength - 1 > letterIndex &&
+        letterIndex === word.length - 1
+      ) {
+        // last letter and there is extra input to display
+        return (
+          <React.Fragment key={`p${paragraphIndex}-w${wordIndex}-extras`}>
+            {letter}
+            {wordInput
+              .split('')
+              .slice(letterIndex + 1, wordInput.length)
+              .map((extraLetter: string, extraIndex: number) => (
                 <ExtraLetter
                   key={`p${paragraphIndex}-w${wordIndex}-el${extraIndex}`}
                   letter={extraLetter}
                 />
               ))}
-            </>
-          )
-
-          return (
-            <>
-              {letter}
-              {extraContent}
-            </>
-          )
+          </React.Fragment>
+        )
         } else if (inputLength < word.length && letterIndex === inputLength) {
           // last typed letter but there are more letters in the word
           return word

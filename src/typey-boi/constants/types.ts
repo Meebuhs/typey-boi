@@ -1,8 +1,16 @@
 // Action types
+export const ADD_CHARACTER = 'ADD_CHARACTER'
 export const REMOVE_CHARACTER = 'REMOVE_CHARACTER'
 export const COMPLETE_WORD = 'COMPLETE_WORD'
-export const ADD_CHARACTER = 'ADD_CHARACTER'
+export const COMPLETE_PARAGRAPH = 'COMPLETE_PARAGRAPH'
 export const SET_TEXT = 'SET_TEXT'
+
+export interface IAddCharacterAction {
+  type: typeof ADD_CHARACTER
+  payload: {
+    character: string
+  }
+}
 
 export interface IRemoveCharacterAction {
   type: typeof REMOVE_CHARACTER
@@ -12,11 +20,8 @@ export interface ICompleteWordAction {
   type: typeof COMPLETE_WORD
 }
 
-export interface IAddCharacterAction {
-  type: typeof ADD_CHARACTER
-  payload: {
-    character: string
-  }
+export interface ICompleteParagraphAction {
+  type: typeof COMPLETE_PARAGRAPH
 }
 
 export interface ISetTextAction {
@@ -27,9 +32,10 @@ export interface ISetTextAction {
 }
 
 export type Action =
+  | IAddCharacterAction
   | IRemoveCharacterAction
   | ICompleteWordAction
-  | IAddCharacterAction
+  | ICompleteParagraphAction
   | ISetTextAction
 
 // File event types

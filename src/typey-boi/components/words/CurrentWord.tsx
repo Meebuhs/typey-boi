@@ -52,12 +52,13 @@ export function CurrentWord({
             />
           )
         } else if (
-          wordInput.length > letterIndex &&
+          wordInput.length - 1 > letterIndex &&
           letterIndex === word.length - 1
         ) {
           // last letter and there is extra input to display
-          const extraContent = (
-            <>
+          return (
+            <React.Fragment key={`p${paragraphIndex}-w${wordIndex}-extras`}>
+              {letter}
               {wordInput
                 .split('')
                 .slice(letterIndex + 1, wordInput.length)
@@ -67,13 +68,7 @@ export function CurrentWord({
                     letter={extraLetter}
                   />
                 ))}
-            </>
-          )
-          return (
-            <>
-              {letter}
-              {extraContent}
-            </>
+            </React.Fragment>
           )
         } else {
           return letter

@@ -4,6 +4,7 @@ import {
   ADD_CHARACTER,
   Action,
   SET_TEXT,
+  COMPLETE_PARAGRAPH,
 } from 'constants/types'
 import { IState, initialState } from 'models/typey-boi'
 
@@ -19,6 +20,21 @@ export const reducer = (
     currentLetterIndex,
   } = state
   switch (action.type) {
+    case ADD_CHARACTER: {
+      const newInput = [...userInput]
+      const newParagraph = [...newInput[currentParagraphIndex]]
+      let [newWord] = newParagraph.slice(currentWordIndex, currentWordIndex + 1)
+      newWord = newWord + action.payload.character
+
+      newParagraph[currentWordIndex] = newWord
+      newInput[currentParagraphIndex] = newParagraph
+
+      return {
+        ...state,
+        userInput: newInput,
+        currentLetterIndex: currentLetterIndex + 1,
+      }
+    }
     case REMOVE_CHARACTER: {
       if (
         currentParagraphIndex !== 0 ||
@@ -69,12 +85,9 @@ export const reducer = (
     }
     case COMPLETE_WORD: {
       if (paragraphs[currentParagraphIndex].length - 1 === currentWordIndex) {
-        // finished line
+        // at end of paragraph, ignore it
         return {
           ...state,
-          currentParagraphIndex: currentParagraphIndex + 1,
-          currentWordIndex: 0,
-          currentLetterIndex: 0,
         }
       } else {
         return {
@@ -84,24 +97,16 @@ export const reducer = (
         }
       }
     }
-    case ADD_CHARACTER: {
-      const newInput = [...userInput]
-      const newParagraph = [...newInput[currentParagraphIndex]]
-      let [newWord] = newParagraph.slice(currentWordIndex, currentWordIndex + 1)
-      newWord = newWord + action.payload.character
-
-      newParagraph[currentWordIndex] = newWord
-      newInput[currentParagraphIndex] = newParagraph
-
+    case COMPLETE_PARAGRAPH: {
       return {
         ...state,
-        userInput: newInput,
-        currentLetterIndex: currentLetterIndex + 1,
+        currentParagraphIndex: currentParagraphIndex + 1,
+        currentWordIndex: 0,
+        currentLetterIndex: 0,
       }
     }
     case SET_TEXT: {
       const paragraphs = []
-      console.log(action.payload.text.replace(/\r/g, "").split(/\n/))
       for (const paragraph of action.payload.text.replace(/\r/g, "").split(/\n/)) {
         if (paragraph !== '') {
         paragraphs.push(paragraph.split(' '))
