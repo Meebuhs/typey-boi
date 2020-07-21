@@ -5,6 +5,8 @@ import {
   IRemoveCharacterAction,
   ICompleteWordAction,
   IAddCharacterAction,
+  ISetTextAction,
+  SET_TEXT,
 } from 'constants/types'
 
 export const removeCharacter = (): IRemoveCharacterAction => ({
@@ -19,5 +21,12 @@ export const addCharacter = (character: string): IAddCharacterAction => ({
   type: ADD_CHARACTER,
   payload: {
     character: character,
+  },
+})
+
+export const setText = (text: string): ISetTextAction => ({
+  type: SET_TEXT,
+  payload: {
+    text: text,
   },
 })

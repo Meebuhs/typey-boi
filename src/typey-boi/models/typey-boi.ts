@@ -6,35 +6,9 @@ export interface IState {
   currentLetterIndex: number
 }
 
-const text =
-  'This is placeholder text, it will be replaced later in development. \
-This is placeholder text, it will be replaced later in development. \
-This is placeholder text, it will be replaced later in development. \
-This is placeholder text, it will be replaced later in development.'
-
-let characterCount = 0
-const characterThreshold = 40
-const lines = []
-let line = []
-for (const word of text.split(' ')) {
-  if (characterCount + word.length < characterThreshold) {
-    line.push(word)
-    characterCount += word.length + 1
-  } else {
-    lines.push(line)
-    line = [word]
-    characterCount = 0
-  }
-}
-
-const inputs = []
-for (const line of lines) {
-  inputs.push(new Array(line.length).fill(''))
-}
-
 export const initialState: IState = {
-  lines: lines,
-  lineInputs: inputs,
+  lines: [['Load', 'a', 'book', 'below.']],
+  lineInputs: [['', '', '', '']],
   currentLineIndex: 0,
   currentWordIndex: 0,
   currentLetterIndex: 0,

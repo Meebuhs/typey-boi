@@ -1,5 +1,5 @@
 import * as React from 'react'
-import useKeyPress from 'hooks/useKeyPress'
+import { useKeyPress } from 'hooks/useKeyPress'
 import './TextInput.scss'
 import { CurrentLine } from 'components/lines/CurrentLine'
 import { FutureLine } from 'components/lines/FutureLine'
