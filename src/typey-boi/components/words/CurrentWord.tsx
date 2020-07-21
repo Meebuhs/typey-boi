@@ -8,31 +8,31 @@ import { FutureLetter } from 'components/letters/FutureLetter'
 interface IProps {
   word: string
   wordIndex: number
-  lineIndex: number
+  paragraphIndex: number
   currentLetterIndex: number
-  lineInput: string[]
+  wordInput: string
 }
 
 export function CurrentWord({
   word,
-  lineIndex,
+  paragraphIndex,
   wordIndex,
   currentLetterIndex,
-  lineInput,
+  wordInput,
 }: IProps): React.ReactElement {
   return (
     <div className="word">
       {word.split('').map((expectedLetter: string, letterIndex: number) => {
-        const typedLetter = lineInput[wordIndex][letterIndex]
+        const typedLetter = wordInput[letterIndex]
         const letter =
           expectedLetter === typedLetter ? (
             <CorrectLetter
-              key={`ln${lineIndex}-w${wordIndex}-lt${letterIndex}`}
+              key={`p${paragraphIndex}-w${wordIndex}-l${letterIndex}`}
               letter={typedLetter}
             />
           ) : (
             <IncorrectLetter
-              key={`ln${lineIndex}-w${wordIndex}-lt${letterIndex}`}
+              key={`p${paragraphIndex}-w${wordIndex}-l${letterIndex}`}
               letter={typedLetter}
             />
           )
@@ -40,30 +40,30 @@ export function CurrentWord({
         if (letterIndex === currentLetterIndex) {
           return (
             <CurrentLetter
-              key={`ln${lineIndex}-w${wordIndex}-lt${letterIndex}`}
+              key={`p${paragraphIndex}-w${wordIndex}-l${letterIndex}`}
               letter={expectedLetter}
             />
           )
         } else if (letterIndex > currentLetterIndex) {
           return (
             <FutureLetter
-              key={`ln${lineIndex}-w${wordIndex}-lt${letterIndex}`}
+              key={`p${paragraphIndex}-w${wordIndex}-l${letterIndex}`}
               letter={expectedLetter}
             />
           )
         } else if (
-          lineInput[wordIndex].length > letterIndex &&
+          wordInput.length > letterIndex &&
           letterIndex === word.length - 1
         ) {
           // last letter and there is extra input to display
           const extraContent = (
             <>
-              {lineInput[wordIndex]
+              {wordInput
                 .split('')
-                .slice(letterIndex + 1, lineInput[wordIndex].length)
+                .slice(letterIndex + 1, wordInput.length)
                 .map((extraLetter: string, extraIndex: number) => (
                   <ExtraLetter
-                    key={`ln${lineIndex}-w${wordIndex}-elt${extraIndex}`}
+                    key={`p${paragraphIndex}-w${wordIndex}-el${extraIndex}`}
                     letter={extraLetter}
                   />
                 ))}

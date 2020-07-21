@@ -1,14 +1,19 @@
 .container {
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
-.completed-line,
-.current-line,
-.future-line {
+.completed-paragraph,
+.current-paragraph,
+.future-paragraph {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 80%;
+  margin: .5em 0;
 }
 
 .word {
@@ -44,6 +49,13 @@
   font-weight: bold;
 }
 
+.incorrect-letter,
+.extra-letter {
+  @include letter;
+  color: red;
+  font-weight: bold;
+}
+
 .current-letter {
   @include letter;
   animation: letter-indicator 0.75s ease-out 0s infinite alternate;
@@ -65,9 +77,3 @@
   }
 }
 
-.incorrect-letter,
-.extra-letter {
-  @include letter;
-  color: red;
-  font-weight: bold;
-}

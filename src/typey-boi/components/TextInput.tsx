@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { useKeyPress } from 'hooks/useKeyPress'
 import './TextInput.scss'
-import { CurrentLine } from 'components/lines/CurrentLine'
-import { FutureLine } from 'components/lines/FutureLine'
-import { CompletedLine } from 'components/lines/CompletedLine'
+import { CurrentParagraph } from 'components/paragraphs/CurrentParagraph'
+import { FutureParagraph } from 'components/paragraphs/FutureParagraph'
+import { CompletedParagraph } from 'components/paragraphs/CompletedParagraph'
 import { removeCharacter, completeWord, addCharacter } from 'actions/actions'
 import { useSelector, useDispatch } from 'react-redux'
 import { IState } from 'models/typey-boi'
@@ -11,9 +11,9 @@ import { IState } from 'models/typey-boi'
 export function TextInput(): React.ReactElement {
   const selectState = (state: IState) => state
   const {
-    lines,
-    lineInputs,
-    currentLineIndex,
+    paragraphs,
+    userInput,
+    currentParagraphIndex,
     currentWordIndex,
     currentLetterIndex,
   } = useSelector(selectState)
@@ -31,33 +31,33 @@ export function TextInput(): React.ReactElement {
 
   return (
     <div className="container">
-      {lines.map((line: string[], lineIndex: number) => {
-        if (lineIndex > currentLineIndex) {
+      {paragraphs.map((paragraph: string[], paragraphIndex: number) => {
+        if (paragraphIndex > currentParagraphIndex) {
           return (
-            <FutureLine
-              key={`ln${lineIndex}`}
-              line={line}
-              lineIndex={lineIndex}
+            <FutureParagraph
+              key={`p${paragraphIndex}`}
+              paragraph={paragraph}
+              paragraphIndex={paragraphIndex}
             />
           )
-        } else if (lineIndex == currentLineIndex) {
+        } else if (paragraphIndex == currentParagraphIndex) {
           return (
-            <CurrentLine
-              key={`ln${lineIndex}`}
-              line={line}
-              lineIndex={lineIndex}
+            <CurrentParagraph
+              key={`p${paragraphIndex}`}
+              paragraph={paragraph}
+              paragraphIndex={paragraphIndex}
               currentWordIndex={currentWordIndex}
               currentLetterIndex={currentLetterIndex}
-              lineInput={lineInputs[lineIndex]}
+              paragraphInput={userInput[paragraphIndex]}
             />
           )
         } else {
           return (
-            <CompletedLine
-              key={`ln${lineIndex}`}
-              line={line}
-              lineIndex={lineIndex}
-              lineInput={lineInputs[lineIndex]}
+            <CompletedParagraph
+              key={`p${paragraphIndex}`}
+              paragraph={paragraph}
+              paragraphIndex={paragraphIndex}
+              paragraphInput={userInput[paragraphIndex]}
             />
           )
         }

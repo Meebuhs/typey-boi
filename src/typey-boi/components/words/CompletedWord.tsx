@@ -8,13 +8,13 @@ import { ErrorIndicator } from 'components/ErrorIndicator'
 interface IProps {
   word: string
   wordIndex: number
-  lineIndex: number
+  paragraphIndex: number
   wordInput: string
 }
 
 export function CompletedWord({
   word,
-  lineIndex,
+  paragraphIndex,
   wordIndex,
   wordInput,
 }: IProps): React.ReactElement {
@@ -27,12 +27,12 @@ export function CompletedWord({
         const letter =
           expectedLetter === typedLetter ? (
             <CorrectLetter
-              key={`ln${lineIndex}-w${wordIndex}-lt${letterIndex}`}
+              key={`p${paragraphIndex}-w${wordIndex}-l${letterIndex}`}
               letter={typedLetter}
             />
           ) : (
             <IncorrectLetter
-              key={`ln${lineIndex}-w${wordIndex}-lt${letterIndex}`}
+              key={`p${paragraphIndex}-w${wordIndex}-l${letterIndex}`}
               letter={typedLetter}
             />
           )
@@ -54,7 +54,7 @@ export function CompletedWord({
             <>
               {extraLetters.map((extraLetter: string, extraIndex: number) => (
                 <ExtraLetter
-                  key={`ln${lineIndex}-w${wordIndex}-elt${extraIndex}`}
+                  key={`p${paragraphIndex}-w${wordIndex}-el${extraIndex}`}
                   letter={extraLetter}
                 />
               ))}
@@ -74,7 +74,7 @@ export function CompletedWord({
             .slice(letterIndex, word.length)
             .map((missedLetter: string, missedIndex: number) => (
               <MissedLetter
-                key={`ln${lineIndex}-w${wordIndex}-mlt${missedIndex}`}
+                key={`p${paragraphIndex}-w${wordIndex}-ml${missedIndex}`}
                 letter={missedLetter}
               />
             ))
@@ -83,7 +83,7 @@ export function CompletedWord({
         }
       })}
       {error ? (
-        <ErrorIndicator key={`error-ln${lineIndex}-w${wordIndex}`} />
+        <ErrorIndicator key={`error-p${paragraphIndex}-w${wordIndex}`} />
       ) : null}
     </div>
   )

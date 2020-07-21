@@ -4,51 +4,51 @@ import { CompletedWord } from 'components/words/CompletedWord'
 import { CurrentWord } from 'components/words/CurrentWord'
 
 interface IProps {
-  line: string[]
-  lineIndex: number
+  paragraph: string[]
+  paragraphIndex: number
   currentWordIndex: number
   currentLetterIndex: number
-  lineInput: string[]
+  paragraphInput: string[]
 }
 
-export function CurrentLine({
-  line,
-  lineIndex,
+export function CurrentParagraph({
+  paragraph,
+  paragraphIndex,
   currentWordIndex,
   currentLetterIndex,
-  lineInput,
+  paragraphInput,
 }: IProps): React.ReactElement {
   return (
-    <div className="current-line">
-      {line.map((word: string, wordIndex: number) => {
+    <div className="current-paragraph">
+      {paragraph.map((word: string, wordIndex: number) => {
         if (wordIndex > currentWordIndex) {
           return (
             <FutureWord
-              key={`ln${lineIndex}-w${wordIndex}`}
+              key={`p${paragraphIndex}-w${wordIndex}`}
               word={word}
-              lineIndex={lineIndex}
+              paragraphIndex={paragraphIndex}
               wordIndex={wordIndex}
             />
           )
         } else if (wordIndex == currentWordIndex) {
           return (
             <CurrentWord
-              key={`ln${lineIndex}-w${wordIndex}`}
+              key={`p${paragraphIndex}-w${wordIndex}`}
               word={word}
               wordIndex={wordIndex}
-              lineIndex={lineIndex}
+              paragraphIndex={paragraphIndex}
               currentLetterIndex={currentLetterIndex}
-              lineInput={lineInput}
+              wordInput={paragraphInput[wordIndex]}
             />
           )
         } else {
           return (
             <CompletedWord
-              key={`ln${lineIndex}-w${wordIndex}`}
+              key={`p${paragraphIndex}-w${wordIndex}`}
               word={word}
               wordIndex={wordIndex}
-              lineIndex={lineIndex}
-              wordInput={lineInput[wordIndex]}
+              paragraphIndex={paragraphIndex}
+              wordInput={paragraphInput[wordIndex]}
             />
           )
         }

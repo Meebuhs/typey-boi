@@ -12,54 +12,54 @@ export const reducer = (
   action: Action
 ): IState => {
   const {
-    lines,
-    lineInputs,
-    currentLineIndex,
+    paragraphs,
+    userInput,
+    currentParagraphIndex,
     currentWordIndex,
     currentLetterIndex,
   } = state
   switch (action.type) {
     case REMOVE_CHARACTER: {
       if (
-        currentLineIndex !== 0 ||
+        currentParagraphIndex !== 0 ||
         currentWordIndex !== 0 ||
         currentLetterIndex !== 0
       ) {
         if (currentWordIndex === 0 && currentLetterIndex === 0) {
           // nothing in current line, go back one
-          const newLineIndex = currentLineIndex - 1
-          const newWordIndex = lineInputs[newLineIndex].length - 1
-          const newLetterIndex = lineInputs[newLineIndex][newWordIndex].length
+          const newParagraphIndex = currentParagraphIndex - 1
+          const newWordIndex = userInput[newParagraphIndex].length - 1
+          const newLetterIndex = userInput[newParagraphIndex][newWordIndex].length
 
           return {
             ...state,
-            currentLineIndex: newLineIndex,
+            currentParagraphIndex: newParagraphIndex,
             currentWordIndex: newWordIndex,
             currentLetterIndex: newLetterIndex,
           }
         } else if (
-          lineInputs[currentLineIndex][currentWordIndex].length === 0
+          userInput[currentParagraphIndex][currentWordIndex].length === 0
         ) {
           // nothing in current word, go back one
           return {
             ...state,
             currentWordIndex: currentWordIndex - 1,
             currentLetterIndex:
-              lineInputs[currentLineIndex][currentWordIndex - 1].length,
+            userInput[currentParagraphIndex][currentWordIndex - 1].length,
           }
         } else {
           // remove a character
-          const newInput = [...lineInputs]
-          const newLine = [...newInput[currentLineIndex]]
-          let [newWord] = newLine.slice(currentWordIndex, currentWordIndex + 1)
+          const newInput = [...userInput]
+          const newParagraph = [...newInput[currentParagraphIndex]]
+          let [newWord] = newParagraph.slice(currentWordIndex, currentWordIndex + 1)
           newWord = newWord.slice(0, -1)
 
-          newLine[currentWordIndex] = newWord
-          newInput[currentLineIndex] = newLine
+          newParagraph[currentWordIndex] = newWord
+          newInput[currentParagraphIndex] = newParagraph
 
           return {
             ...state,
-            lineInputs: newInput,
+            userInput: newInput,
             currentLetterIndex: currentLetterIndex - 1,
           }
         }
@@ -68,11 +68,11 @@ export const reducer = (
       }
     }
     case COMPLETE_WORD: {
-      if (lines[currentLineIndex].length - 1 === currentWordIndex) {
+      if (paragraphs[currentParagraphIndex].length - 1 === currentWordIndex) {
         // finished line
         return {
           ...state,
-          currentLineIndex: currentLineIndex + 1,
+          currentParagraphIndex: currentParagraphIndex + 1,
           currentWordIndex: 0,
           currentLetterIndex: 0,
         }
@@ -85,45 +85,37 @@ export const reducer = (
       }
     }
     case ADD_CHARACTER: {
-      const newInput = [...lineInputs]
-      const newLine = [...newInput[currentLineIndex]]
-      let [newWord] = newLine.slice(currentWordIndex, currentWordIndex + 1)
+      const newInput = [...userInput]
+      const newParagraph = [...newInput[currentParagraphIndex]]
+      let [newWord] = newParagraph.slice(currentWordIndex, currentWordIndex + 1)
       newWord = newWord + action.payload.character
 
-      newLine[currentWordIndex] = newWord
-      newInput[currentLineIndex] = newLine
+      newParagraph[currentWordIndex] = newWord
+      newInput[currentParagraphIndex] = newParagraph
 
       return {
         ...state,
-        lineInputs: newInput,
+        userInput: newInput,
         currentLetterIndex: currentLetterIndex + 1,
       }
     }
     case SET_TEXT: {
-      let characterCount = 0
-      const characterThreshold = 40
-      const lines = []
-      let line = []
-      for (const word of action.payload.text.split(' ')) {
-        if (characterCount + word.length < characterThreshold) {
-          line.push(word)
-          characterCount += word.length + 1
-        } else {
-          lines.push(line)
-          line = [word]
-          characterCount = 0
+      const paragraphs = []
+      console.log(action.payload.text.replace(/\r/g, "").split(/\n/))
+      for (const paragraph of action.payload.text.replace(/\r/g, "").split(/\n/)) {
+        if (paragraph !== '') {
+        paragraphs.push(paragraph.split(' '))
         }
       }
-
       const inputs = []
-      for (const line of lines) {
-        inputs.push(new Array(line.length).fill(''))
+      for (const paragraph of paragraphs) {
+        inputs.push(new Array(paragraph.length).fill(''))
       }
 
       return {
         ...state,
-        lines: lines,
-        lineInputs: inputs,
+        paragraphs: paragraphs,
+        userInput: inputs,
       }
     }
     default:

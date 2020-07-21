@@ -1,15 +1,15 @@
 export interface IState {
-  lines: string[][]
-  lineInputs: string[][]
-  currentLineIndex: number
+  paragraphs: string[][]
+  userInput: string[][]
+  currentParagraphIndex: number
   currentWordIndex: number
   currentLetterIndex: number
 }
 
 export const initialState: IState = {
-  lines: [['Load', 'a', 'book', 'below.']],
-  lineInputs: [['', '', '', '']],
-  currentLineIndex: 0,
+  paragraphs: [['Load', 'a', 'book', 'below.']],
+  userInput: [['', '', '', '']],
+  currentParagraphIndex: 0,
   currentWordIndex: 0,
   currentLetterIndex: 0,
 }

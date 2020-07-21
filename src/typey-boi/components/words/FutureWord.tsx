@@ -4,19 +4,19 @@ import { FutureLetter } from 'components/letters/FutureLetter'
 interface IProps {
   word: string
   wordIndex: number
-  lineIndex: number
+  paragraphIndex: number
 }
 
 export function FutureWord({
   word,
-  lineIndex,
   wordIndex,
+  paragraphIndex,
 }: IProps): React.ReactElement {
   return (
     <div className="word">
       {word.split('').map((letter: string, letterIndex: number) => (
         <FutureLetter
-          key={`ln${lineIndex}-w${wordIndex}-lt${letterIndex}`}
+          key={`p${paragraphIndex}-w${wordIndex}-l${letterIndex}`}
           letter={letter}
         />
       ))}
