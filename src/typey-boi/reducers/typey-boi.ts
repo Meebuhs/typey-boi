@@ -1,19 +1,23 @@
 import {
+  Action,
+  ADD_CHARACTER,
   REMOVE_CHARACTER,
   COMPLETE_WORD,
-  ADD_CHARACTER,
-  Action,
-  SET_TEXT,
   COMPLETE_PARAGRAPH,
+  SET_TEXT,
 } from 'constants/types'
 import { IState, initialState } from 'models/typey-boi'
+import { FUTURE_PARAGRAPHS_TO_LOAD, COMPLETED_PARAGRAPHS_TO_KEEP } from 'constants/values'
 
 export const reducer = (
   state: IState = initialState,
   action: Action
 ): IState => {
   const {
-    paragraphs,
+    text,
+    completedParagraphs,
+    currentParagraph,
+    futureParagraphs,
     userInput,
     currentParagraphIndex,
     currentWordIndex,
@@ -22,12 +26,12 @@ export const reducer = (
   switch (action.type) {
     case ADD_CHARACTER: {
       const newInput = [...userInput]
-      const newParagraph = [...newInput[currentParagraphIndex]]
+      const newParagraph = [...newInput[newInput.length - 1]]
       let [newWord] = newParagraph.slice(currentWordIndex, currentWordIndex + 1)
       newWord = newWord + action.payload.character
 
       newParagraph[currentWordIndex] = newWord
-      newInput[currentParagraphIndex] = newParagraph
+      newInput[newInput.length - 1] = newParagraph
 
       return {
         ...state,
@@ -42,36 +46,32 @@ export const reducer = (
         currentLetterIndex !== 0
       ) {
         if (currentWordIndex === 0 && currentLetterIndex === 0) {
-          // nothing in current line, go back one
-          const newParagraphIndex = currentParagraphIndex - 1
-          const newWordIndex = userInput[newParagraphIndex].length - 1
-          const newLetterIndex = userInput[newParagraphIndex][newWordIndex].length
-
+          // at start of paragraph, ignore it
           return {
             ...state,
-            currentParagraphIndex: newParagraphIndex,
-            currentWordIndex: newWordIndex,
-            currentLetterIndex: newLetterIndex,
           }
         } else if (
-          userInput[currentParagraphIndex][currentWordIndex].length === 0
+          userInput[userInput.length - 1][currentWordIndex].length === 0
         ) {
           // nothing in current word, go back one
           return {
             ...state,
             currentWordIndex: currentWordIndex - 1,
             currentLetterIndex:
-            userInput[currentParagraphIndex][currentWordIndex - 1].length,
+              userInput[userInput.length - 1][currentWordIndex - 1].length,
           }
         } else {
           // remove a character
           const newInput = [...userInput]
-          const newParagraph = [...newInput[currentParagraphIndex]]
-          let [newWord] = newParagraph.slice(currentWordIndex, currentWordIndex + 1)
+          const newParagraph = [...newInput[newInput.length - 1]]
+          let [newWord] = newParagraph.slice(
+            currentWordIndex,
+            currentWordIndex + 1
+          )
           newWord = newWord.slice(0, -1)
 
           newParagraph[currentWordIndex] = newWord
-          newInput[currentParagraphIndex] = newParagraph
+          newInput[userInput.length - 1] = newParagraph
 
           return {
             ...state,
@@ -84,7 +84,7 @@ export const reducer = (
       }
     }
     case COMPLETE_WORD: {
-      if (paragraphs[currentParagraphIndex].length - 1 === currentWordIndex) {
+      if (currentParagraph.length - 1 === currentWordIndex) {
         // at end of paragraph, ignore it
         return {
           ...state,
@@ -98,28 +98,58 @@ export const reducer = (
       }
     }
     case COMPLETE_PARAGRAPH: {
-      return {
-        ...state,
-        currentParagraphIndex: currentParagraphIndex + 1,
-        currentWordIndex: 0,
-        currentLetterIndex: 0,
+      const newCompletedParagraphs = [...completedParagraphs];
+      if (newCompletedParagraphs.length === COMPLETED_PARAGRAPHS_TO_KEEP) {
+        newCompletedParagraphs.shift()
       }
-    }
-    case SET_TEXT: {
-      const paragraphs = []
-      for (const paragraph of action.payload.text.replace(/\r/g, "").split(/\n/)) {
-        if (paragraph !== '') {
-        paragraphs.push(paragraph.split(' '))
-        }
+      newCompletedParagraphs.push(currentParagraph)
+
+      const newFutureParagraphs = [...futureParagraphs]
+      const newCurrentParagraph = newFutureParagraphs.shift()
+
+      newFutureParagraphs.push(text[currentParagraphIndex + FUTURE_PARAGRAPHS_TO_LOAD + 1].split(' '))
+
+      const inputs = [...userInput]
+      if (inputs.length === COMPLETED_PARAGRAPHS_TO_KEEP + 1) {
+        inputs.shift()
       }
-      const inputs = []
-      for (const paragraph of paragraphs) {
-        inputs.push(new Array(paragraph.length).fill(''))
-      }
+      inputs.push(
+        new Array(newCurrentParagraph.length).fill('')
+      )
 
       return {
         ...state,
-        paragraphs: paragraphs,
+        completedParagraphs: newCompletedParagraphs,
+        currentParagraph: newCurrentParagraph,
+        futureParagraphs: newFutureParagraphs,
+        currentParagraphIndex: currentParagraphIndex + 1,
+        currentWordIndex: 0,
+        currentLetterIndex: 0,
+        userInput: inputs,
+      }
+    }
+    case SET_TEXT: {
+      const newText = action.payload.text.replace(/\r/g, '')
+      .split(/\n/)
+      .filter((paragraph) => paragraph !== '')
+
+      const newCurrentParagraph = newText[0].split(' ')
+
+      const newFutureParagraphs = newText.slice(1, FUTURE_PARAGRAPHS_TO_LOAD + 1).map(paragraph => (
+        paragraph.split(' ')
+      ))
+
+      const inputs = [new Array(newCurrentParagraph.length).fill('')]
+
+      return {
+        ...state,
+        text: newText,
+        completedParagraphs: [],
+        currentParagraph: newCurrentParagraph,
+        futureParagraphs: newFutureParagraphs,
+        currentParagraphIndex: 0,
+        currentWordIndex: 0,
+        currentLetterIndex: 0,
         userInput: inputs,
       }
     }

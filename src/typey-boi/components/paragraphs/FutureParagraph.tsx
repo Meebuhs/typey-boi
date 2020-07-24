@@ -6,7 +6,10 @@ interface IProps {
   paragraphIndex: number
 }
 
-export function FutureParagraph({ paragraph, paragraphIndex }: IProps): React.ReactElement {
+export function FutureParagraph({
+  paragraph,
+  paragraphIndex,
+}: IProps): React.ReactElement {
   return (
     <div className="future-paragraph">
       {paragraph.map((word: string, wordIndex: number) => {

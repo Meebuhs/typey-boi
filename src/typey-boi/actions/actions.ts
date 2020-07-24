@@ -1,14 +1,14 @@
 import {
+  ADD_CHARACTER,
   REMOVE_CHARACTER,
   COMPLETE_WORD,
-  ADD_CHARACTER,
-  IRemoveCharacterAction,
-  ICompleteWordAction,
-  IAddCharacterAction,
-  ISetTextAction,
-  SET_TEXT,
   COMPLETE_PARAGRAPH,
+  SET_TEXT,
+  IRemoveCharacterAction,
+  IAddCharacterAction,
+  ICompleteWordAction,
   ICompleteParagraphAction,
+  ISetTextAction,
 } from 'constants/types'
 
 export const addCharacter = (character: string): IAddCharacterAction => ({

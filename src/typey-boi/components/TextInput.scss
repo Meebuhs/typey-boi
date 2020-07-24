@@ -1,9 +1,11 @@
 .container {
-  width: 100%;
+  align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  width: 100%;
+  height: 95%;
+  overflow-y: hidden;
 }
 
 .completed-paragraph,
@@ -12,8 +14,8 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  margin: 0.5em 0;
   max-width: 80%;
-  margin: .5em 0;
 }
 
 .word {
@@ -76,4 +78,3 @@
     background-color: grey;
   }
 }
-

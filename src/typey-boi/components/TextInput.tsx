@@ -4,14 +4,25 @@ import './TextInput.scss'
 import { CurrentParagraph } from 'components/paragraphs/CurrentParagraph'
 import { FutureParagraph } from 'components/paragraphs/FutureParagraph'
 import { CompletedParagraph } from 'components/paragraphs/CompletedParagraph'
-import { removeCharacter, completeWord, addCharacter, completeParagraph } from 'actions/actions'
+import {
+  addCharacter,
+  removeCharacter,
+  completeWord,
+  completeParagraph,
+} from 'actions/actions'
 import { useSelector, useDispatch } from 'react-redux'
 import { IState } from 'models/typey-boi'
+import {
+  FUTURE_PARAGRAPHS_TO_LOAD,
+  COMPLETED_PARAGRAPHS_TO_KEEP,
+} from 'constants/values'
 
 export function TextInput(): React.ReactElement {
   const selectState = (state: IState) => state
   const {
-    paragraphs,
+    completedParagraphs,
+    currentParagraph,
+    futureParagraphs,
     userInput,
     currentParagraphIndex,
     currentWordIndex,
@@ -33,36 +44,35 @@ export function TextInput(): React.ReactElement {
 
   return (
     <div className="container">
-      {paragraphs.map((paragraph: string[], paragraphIndex: number) => {
-        if (paragraphIndex > currentParagraphIndex) {
-          return (
-            <FutureParagraph
-              key={`p${paragraphIndex}`}
-              paragraph={paragraph}
-              paragraphIndex={paragraphIndex}
-            />
-          )
-        } else if (paragraphIndex == currentParagraphIndex) {
-          return (
-            <CurrentParagraph
-              key={`p${paragraphIndex}`}
-              paragraph={paragraph}
-              paragraphIndex={paragraphIndex}
-              currentWordIndex={currentWordIndex}
-              currentLetterIndex={currentLetterIndex}
-              paragraphInput={userInput[paragraphIndex]}
-            />
-          )
-        } else {
-          return (
-            <CompletedParagraph
-              key={`p${paragraphIndex}`}
-              paragraph={paragraph}
-              paragraphIndex={paragraphIndex}
-              paragraphInput={userInput[paragraphIndex]}
-            />
-          )
-        }
+      {completedParagraphs.map((paragraph: string[], index: number) => {
+        const paragraphIndex =
+          currentParagraphIndex - COMPLETED_PARAGRAPHS_TO_KEEP + index
+        return (
+          <CompletedParagraph
+            key={`p${paragraphIndex}`}
+            paragraph={paragraph}
+            paragraphIndex={paragraphIndex}
+            paragraphInput={userInput[index]}
+          />
+        )
+      })}
+      <CurrentParagraph
+        key={`p${currentParagraphIndex}`}
+        paragraph={currentParagraph}
+        paragraphIndex={currentParagraphIndex}
+        currentWordIndex={currentWordIndex}
+        currentLetterIndex={currentLetterIndex}
+        paragraphInput={userInput[userInput.length - 1]}
+      />
+      {futureParagraphs.map((paragraph: string[], index: number) => {
+        const paragraphIndex = currentParagraphIndex + index + 1
+        return (
+          <FutureParagraph
+            key={`p${paragraphIndex}`}
+            paragraph={paragraph}
+            paragraphIndex={paragraphIndex}
+          />
+        )
       })}
     </div>
   )

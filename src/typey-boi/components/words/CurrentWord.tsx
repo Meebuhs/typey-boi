@@ -23,20 +23,6 @@ export function CurrentWord({
   return (
     <div className="word">
       {word.split('').map((expectedLetter: string, letterIndex: number) => {
-        const typedLetter = wordInput[letterIndex]
-        const letter =
-          expectedLetter === typedLetter ? (
-            <CorrectLetter
-              key={`p${paragraphIndex}-w${wordIndex}-l${letterIndex}`}
-              letter={typedLetter}
-            />
-          ) : (
-            <IncorrectLetter
-              key={`p${paragraphIndex}-w${wordIndex}-l${letterIndex}`}
-              letter={typedLetter}
-            />
-          )
-
         if (letterIndex === currentLetterIndex) {
           return (
             <CurrentLetter
@@ -51,7 +37,22 @@ export function CurrentWord({
               letter={expectedLetter}
             />
           )
-        } else if (
+        } 
+        
+        const typedLetter = wordInput[letterIndex]
+        const letter =
+          expectedLetter === typedLetter ? (
+            <CorrectLetter
+              key={`p${paragraphIndex}-w${wordIndex}-l${letterIndex}`}
+              letter={typedLetter}
+            />
+          ) : (
+            <IncorrectLetter
+              key={`p${paragraphIndex}-w${wordIndex}-l${letterIndex}`}
+              letter={typedLetter}
+            />
+          )
+        if (
           wordInput.length - 1 > letterIndex &&
           letterIndex === word.length - 1
         ) {

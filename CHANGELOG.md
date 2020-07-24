@@ -16,3 +16,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - Added support for multiline text.
  - Added loading text from a file.
  - Added paragraph completion with enter.
+ - Added loading of text in chunks.
