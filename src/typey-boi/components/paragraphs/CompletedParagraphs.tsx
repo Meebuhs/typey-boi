@@ -1,18 +1,17 @@
 import * as React from 'react'
 import { COMPLETED_PARAGRAPHS_TO_KEEP } from 'constants/values'
 import { CompletedWord } from 'components/words/CompletedWord'
+import { IState } from 'models/typey-boi'
+import { useSelector } from 'react-redux'
 
-interface IProps {
-  completedParagraphs: string[][]
-  completedInputs: string[][]
-  currentParagraphIndex: number
-}
+export function CompletedParagraphs(): React.ReactElement {
+  const selectParagraphs = (state: IState) => state.completedParagraphs
+  const selectInputs = (state: IState) => state.completedInputs
+  const selectIndex = (state: IState) => state.currentParagraphIndex
+  const completedParagraphs = useSelector(selectParagraphs)
+  const completedInputs = useSelector(selectInputs)
+  const currentParagraphIndex = useSelector(selectIndex)
 
-export function CompletedParagraphs({
-  completedParagraphs,
-  completedInputs,
-  currentParagraphIndex,
-}: IProps): React.ReactElement {
   return (
     <div className="completed-paragraphs">
       {completedParagraphs.map((paragraph: string[], index: number) => {

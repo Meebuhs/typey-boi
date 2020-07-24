@@ -2,53 +2,53 @@ import * as React from 'react'
 import { FutureWord } from 'components/words/FutureWord'
 import { CompletedWord } from 'components/words/CompletedWord'
 import { CurrentWord } from 'components/words/CurrentWord'
+import { IState } from 'models/typey-boi'
+import { useSelector } from 'react-redux'
 
-interface IProps {
-  paragraph: string[]
-  paragraphIndex: number
-  currentWordIndex: number
-  currentLetterIndex: number
-  paragraphInput: string[]
-}
+export function CurrentParagraph(): React.ReactElement {
+  const selectParagraph = (state: IState) => state.currentParagraph
+  const selectInput = (state: IState) => state.currentInput
+  const selectParagraphIndex = (state: IState) => state.currentParagraphIndex
+  const selectWordIndex = (state: IState) => state.currentWordIndex
+  const selectLetterIndex = (state: IState) => state.currentLetterIndex
 
-export function CurrentParagraph({
-  paragraph,
-  paragraphIndex,
-  currentWordIndex,
-  currentLetterIndex,
-  paragraphInput,
-}: IProps): React.ReactElement {
+  const currentParagraph = useSelector(selectParagraph)
+  const currentInput = useSelector(selectInput)
+  const currentParagraphIndex = useSelector(selectParagraphIndex)
+  const currentWordIndex = useSelector(selectWordIndex)
+  const currentLetterIndex = useSelector(selectLetterIndex)
+
   return (
     <div className="current-paragraph">
-      {paragraph.map((word: string, wordIndex: number) => {
+      {currentParagraph.map((word: string, wordIndex: number) => {
         if (wordIndex > currentWordIndex) {
           return (
             <FutureWord
-              key={`p${paragraphIndex}-w${wordIndex}`}
+              key={`p${currentParagraphIndex}-w${wordIndex}`}
               word={word}
-              paragraphIndex={paragraphIndex}
+              paragraphIndex={currentParagraphIndex}
               wordIndex={wordIndex}
             />
           )
         } else if (wordIndex == currentWordIndex) {
           return (
             <CurrentWord
-              key={`p${paragraphIndex}-w${wordIndex}`}
+              key={`p${currentParagraphIndex}-w${wordIndex}`}
               word={word}
               wordIndex={wordIndex}
-              paragraphIndex={paragraphIndex}
+              paragraphIndex={currentParagraphIndex}
               currentLetterIndex={currentLetterIndex}
-              wordInput={paragraphInput[wordIndex]}
+              wordInput={currentInput[wordIndex]}
             />
           )
         } else {
           return (
             <CompletedWord
-              key={`p${paragraphIndex}-w${wordIndex}`}
+              key={`p${currentParagraphIndex}-w${wordIndex}`}
               word={word}
               wordIndex={wordIndex}
-              paragraphIndex={paragraphIndex}
-              wordInput={paragraphInput[wordIndex]}
+              paragraphIndex={currentParagraphIndex}
+              wordInput={currentInput[wordIndex]}
             />
           )
         }

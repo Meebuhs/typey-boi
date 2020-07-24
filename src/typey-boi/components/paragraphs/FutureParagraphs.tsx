@@ -1,15 +1,14 @@
 import * as React from 'react'
 import { FutureWord } from 'components/words/FutureWord'
+import { IState } from 'models/typey-boi'
+import { useSelector } from 'react-redux'
 
-interface IProps {
-  futureParagraphs: string[][]
-  currentParagraphIndex: number
-}
+export function FutureParagraphs(): React.ReactElement {
+  const selectFutureParagraphs = (state: IState) => state.futureParagraphs
+  const selectParagraphIndex = (state: IState) => state.currentParagraphIndex
+  const futureParagraphs = useSelector(selectFutureParagraphs)
+  const currentParagraphIndex = useSelector(selectParagraphIndex)
 
-export function FutureParagraphs({
-  futureParagraphs,
-  currentParagraphIndex,
-}: IProps): React.ReactElement {
   return (
     <div className="future-paragraphs">
       {futureParagraphs.map((paragraph: string[], index: number) => {
