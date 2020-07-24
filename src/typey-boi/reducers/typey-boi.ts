@@ -128,6 +128,7 @@ export const reducer = (
     case SET_TEXT: {
       const newText = action.payload.text
         .replace(/\r/g, '')
+        .replace(/’/g, "'")
         .split(/\n/)
         .filter((paragraph) => paragraph !== '')
 
