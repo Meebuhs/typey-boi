@@ -3,4 +3,4 @@
 // Completed paragraphs are more expensive than future. (~4x longer to render)
 
 export const COMPLETED_PARAGRAPHS_TO_KEEP = 1
-export const FUTURE_PARAGRAPHS_TO_LOAD = 1
+export const FUTURE_PARAGRAPHS_TO_LOAD = 2

@@ -37,8 +37,8 @@ export function CurrentWord({
               letter={expectedLetter}
             />
           )
-        } 
-        
+        }
+
         const typedLetter = wordInput[letterIndex]
         const letter =
           expectedLetter === typedLetter ? (

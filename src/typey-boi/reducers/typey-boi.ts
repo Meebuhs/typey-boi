@@ -7,7 +7,10 @@ import {
   SET_TEXT,
 } from 'constants/types'
 import { IState, initialState } from 'models/typey-boi'
-import { FUTURE_PARAGRAPHS_TO_LOAD, COMPLETED_PARAGRAPHS_TO_KEEP } from 'constants/values'
+import {
+  FUTURE_PARAGRAPHS_TO_LOAD,
+  COMPLETED_PARAGRAPHS_TO_KEEP,
+} from 'constants/values'
 
 export const reducer = (
   state: IState = initialState,
@@ -18,24 +21,23 @@ export const reducer = (
     completedParagraphs,
     currentParagraph,
     futureParagraphs,
-    userInput,
+    completedInputs,
+    currentInput,
     currentParagraphIndex,
     currentWordIndex,
     currentLetterIndex,
   } = state
   switch (action.type) {
     case ADD_CHARACTER: {
-      const newInput = [...userInput]
-      const newParagraph = [...newInput[newInput.length - 1]]
-      let [newWord] = newParagraph.slice(currentWordIndex, currentWordIndex + 1)
+      const newInput = [...currentInput]
+      let [newWord] = newInput.slice(currentWordIndex, currentWordIndex + 1)
       newWord = newWord + action.payload.character
 
-      newParagraph[currentWordIndex] = newWord
-      newInput[newInput.length - 1] = newParagraph
+      newInput[currentWordIndex] = newWord
 
       return {
         ...state,
-        userInput: newInput,
+        currentInput: newInput,
         currentLetterIndex: currentLetterIndex + 1,
       }
     }
@@ -50,32 +52,24 @@ export const reducer = (
           return {
             ...state,
           }
-        } else if (
-          userInput[userInput.length - 1][currentWordIndex].length === 0
-        ) {
+        } else if (currentInput[currentWordIndex].length === 0) {
           // nothing in current word, go back one
           return {
             ...state,
             currentWordIndex: currentWordIndex - 1,
-            currentLetterIndex:
-              userInput[userInput.length - 1][currentWordIndex - 1].length,
+            currentLetterIndex: currentInput[currentWordIndex - 1].length,
           }
         } else {
           // remove a character
-          const newInput = [...userInput]
-          const newParagraph = [...newInput[newInput.length - 1]]
-          let [newWord] = newParagraph.slice(
-            currentWordIndex,
-            currentWordIndex + 1
-          )
+          const newInput = [...currentInput]
+          let [newWord] = newInput.slice(currentWordIndex, currentWordIndex + 1)
           newWord = newWord.slice(0, -1)
 
-          newParagraph[currentWordIndex] = newWord
-          newInput[userInput.length - 1] = newParagraph
+          newInput[currentWordIndex] = newWord
 
           return {
             ...state,
-            userInput: newInput,
+            currentInput: newInput,
             currentLetterIndex: currentLetterIndex - 1,
           }
         }
@@ -98,7 +92,7 @@ export const reducer = (
       }
     }
     case COMPLETE_PARAGRAPH: {
-      const newCompletedParagraphs = [...completedParagraphs];
+      const newCompletedParagraphs = [...completedParagraphs]
       if (newCompletedParagraphs.length === COMPLETED_PARAGRAPHS_TO_KEEP) {
         newCompletedParagraphs.shift()
       }
@@ -107,15 +101,17 @@ export const reducer = (
       const newFutureParagraphs = [...futureParagraphs]
       const newCurrentParagraph = newFutureParagraphs.shift()
 
-      newFutureParagraphs.push(text[currentParagraphIndex + FUTURE_PARAGRAPHS_TO_LOAD + 1].split(' '))
-
-      const inputs = [...userInput]
-      if (inputs.length === COMPLETED_PARAGRAPHS_TO_KEEP + 1) {
-        inputs.shift()
-      }
-      inputs.push(
-        new Array(newCurrentParagraph.length).fill('')
+      newFutureParagraphs.push(
+        text[currentParagraphIndex + FUTURE_PARAGRAPHS_TO_LOAD + 1].split(' ')
       )
+
+      const newCompletedInputs = [...completedInputs]
+      if (newCompletedInputs.length === COMPLETED_PARAGRAPHS_TO_KEEP) {
+        newCompletedInputs.shift()
+      }
+      newCompletedInputs.push(currentInput)
+
+      const newCurrentInput = new Array(newCurrentParagraph.length).fill('')
 
       return {
         ...state,
@@ -123,23 +119,25 @@ export const reducer = (
         currentParagraph: newCurrentParagraph,
         futureParagraphs: newFutureParagraphs,
         currentParagraphIndex: currentParagraphIndex + 1,
+        completedInputs: newCompletedInputs,
+        currentInput: newCurrentInput,
         currentWordIndex: 0,
         currentLetterIndex: 0,
-        userInput: inputs,
       }
     }
     case SET_TEXT: {
-      const newText = action.payload.text.replace(/\r/g, '')
-      .split(/\n/)
-      .filter((paragraph) => paragraph !== '')
+      const newText = action.payload.text
+        .replace(/\r/g, '')
+        .split(/\n/)
+        .filter((paragraph) => paragraph !== '')
 
       const newCurrentParagraph = newText[0].split(' ')
 
-      const newFutureParagraphs = newText.slice(1, FUTURE_PARAGRAPHS_TO_LOAD + 1).map(paragraph => (
-        paragraph.split(' ')
-      ))
+      const newFutureParagraphs = newText
+        .slice(1, FUTURE_PARAGRAPHS_TO_LOAD + 1)
+        .map((paragraph) => paragraph.split(' '))
 
-      const inputs = [new Array(newCurrentParagraph.length).fill('')]
+      const newCurrentInput = new Array(newCurrentParagraph.length).fill('')
 
       return {
         ...state,
@@ -147,10 +145,11 @@ export const reducer = (
         completedParagraphs: [],
         currentParagraph: newCurrentParagraph,
         futureParagraphs: newFutureParagraphs,
+        completedInputs: [],
+        currentInput: newCurrentInput,
         currentParagraphIndex: 0,
         currentWordIndex: 0,
         currentLetterIndex: 0,
-        userInput: inputs,
       }
     }
     default:

@@ -2,10 +2,10 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  width: 100%;
   height: 95%;
+  justify-content: center;
   overflow-y: hidden;
+  width: 100%;
 }
 
 .completed-paragraph,
@@ -16,6 +16,14 @@
   flex-wrap: wrap;
   margin: 0.5em 0;
   max-width: 80%;
+}
+
+.completed-paragraphs,
+.future-paragraphs {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .word {
