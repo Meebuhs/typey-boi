@@ -29,14 +29,16 @@
     "hooks": "./src/typey-boi/hooks",
     "models": "./src/typey-boi/models",
     "reducers": "./src/typey-boi/reducers",
-    "store": "./src/typey-boi/store"
+    "store": "./src/typey-boi/store",
+    "utils": "./src/utils"
   },
   "dependencies": {
     "actions": "^1.3.0",
     "components": "^0.1.0",
     "contexts": "^0.0.0",
     "src": "^1.1.2",
-    "store": "^2.0.12"
+    "store": "^2.0.12",
+    "utils": "^0.3.1"
   },
   "devDependencies": {
     "@types/react": "^16.9.43",

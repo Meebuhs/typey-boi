@@ -1,17 +1,18 @@
 {
   "compilerOptions": {
     "jsx": "react",
-    "baseUrl": "./src/typey-boi/",
+    "baseUrl": "./src/",
     "paths": {
-      "actions": ["actions"],
-      "components": ["components"],
-      "constants": ["constants"],
-      "containers": ["containers"],
-      "contexts": ["contexts"],
-      "hooks": ["hooks"],
-      "models": ["models"],
-      "reducers": ["reducers"],
-      "store": ["store"]
+      "actions": ["typey-boi/actions"],
+      "components": ["typey-boi/components"],
+      "constants": ["typey-boi/constants"],
+      "containers": ["typey-boi/containers"],
+      "contexts": ["typey-boi/contexts"],
+      "hooks": ["typey-boi/hooks"],
+      "models": ["typey-boi/models"],
+      "reducers": ["typey-boi/reducers"],
+      "store": ["typey-boi/store"],
+      "utils": ["utils"]
     }
   },
   "exclude": ["node_modules", ".cache", "build", "dist"]

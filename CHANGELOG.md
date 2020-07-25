@@ -18,3 +18,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - Added paragraph completion with enter.
  - Added loading of text in chunks.
  - Added state persistance with local storage.
+ - Added WPM and accuracy metrics.
