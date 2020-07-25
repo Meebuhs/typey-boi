@@ -49,9 +49,7 @@ export const reducer = (
       ) {
         if (currentWordIndex === 0 && currentLetterIndex === 0) {
           // at start of paragraph, ignore it
-          return {
-            ...state,
-          }
+          return state
         } else if (currentInput[currentWordIndex].length === 0) {
           // nothing in current word, go back one
           return {
@@ -80,9 +78,7 @@ export const reducer = (
     case COMPLETE_WORD: {
       if (currentParagraph.length - 1 === currentWordIndex) {
         // at end of paragraph, ignore it
-        return {
-          ...state,
-        }
+        return state
       } else {
         return {
           ...state,
@@ -92,43 +88,50 @@ export const reducer = (
       }
     }
     case COMPLETE_PARAGRAPH: {
-      const newCompletedParagraphs = [...completedParagraphs]
-      if (newCompletedParagraphs.length === COMPLETED_PARAGRAPHS_TO_KEEP) {
-        newCompletedParagraphs.shift()
-      }
-      newCompletedParagraphs.push(currentParagraph)
+      // only allow enter in the last word of a paragraph to minimise mistakes because I
+      // don't want to allow jumping back paragraphs
+      if (currentWordIndex === currentParagraph.length - 1) {
+        const newCompletedParagraphs = [...completedParagraphs]
+        if (newCompletedParagraphs.length === COMPLETED_PARAGRAPHS_TO_KEEP) {
+          newCompletedParagraphs.shift()
+        }
+        newCompletedParagraphs.push(currentParagraph)
 
-      const newFutureParagraphs = [...futureParagraphs]
-      const newCurrentParagraph = newFutureParagraphs.shift()
+        const newFutureParagraphs = [...futureParagraphs]
+        const newCurrentParagraph = newFutureParagraphs.shift()
 
-      newFutureParagraphs.push(
-        text[currentParagraphIndex + FUTURE_PARAGRAPHS_TO_LOAD + 1].split(' ')
-      )
+        newFutureParagraphs.push(
+          text[currentParagraphIndex + FUTURE_PARAGRAPHS_TO_LOAD + 1].split(' ')
+        )
 
-      const newCompletedInputs = [...completedInputs]
-      if (newCompletedInputs.length === COMPLETED_PARAGRAPHS_TO_KEEP) {
-        newCompletedInputs.shift()
-      }
-      newCompletedInputs.push(currentInput)
+        const newCompletedInputs = [...completedInputs]
+        if (newCompletedInputs.length === COMPLETED_PARAGRAPHS_TO_KEEP) {
+          newCompletedInputs.shift()
+        }
+        newCompletedInputs.push(currentInput)
 
-      const newCurrentInput = new Array(newCurrentParagraph.length).fill('')
+        const newCurrentInput = new Array(newCurrentParagraph.length).fill('')
 
-      return {
-        ...state,
-        completedParagraphs: newCompletedParagraphs,
-        currentParagraph: newCurrentParagraph,
-        futureParagraphs: newFutureParagraphs,
-        currentParagraphIndex: currentParagraphIndex + 1,
-        completedInputs: newCompletedInputs,
-        currentInput: newCurrentInput,
-        currentWordIndex: 0,
-        currentLetterIndex: 0,
+        return {
+          ...state,
+          completedParagraphs: newCompletedParagraphs,
+          currentParagraph: newCurrentParagraph,
+          futureParagraphs: newFutureParagraphs,
+          currentParagraphIndex: currentParagraphIndex + 1,
+          completedInputs: newCompletedInputs,
+          currentInput: newCurrentInput,
+          currentWordIndex: 0,
+          currentLetterIndex: 0,
+        }
+      } else {
+        return state
       }
     }
     case SET_TEXT: {
       const newText = action.payload.text
         .replace(/\r/g, '')
         .replace(/’/g, "'")
+        .replace(/—/g, '-')
         .split(/\n/)
         .filter((paragraph) => paragraph !== '')
 
