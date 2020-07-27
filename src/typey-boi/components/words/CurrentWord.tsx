@@ -1,4 +1,5 @@
 import * as React from 'react'
+import * as S from './styles'
 import { CorrectLetter } from 'components/letters/CorrectLetter'
 import { CurrentLetter } from 'components/letters/CurrentLetter'
 import { IncorrectLetter } from 'components/letters/IncorrectLetter'
@@ -21,7 +22,7 @@ export function CurrentWord({
   wordInput,
 }: IProps): React.ReactElement {
   return (
-    <div className="word">
+    <S.Word>
       {word.split('').map((expectedLetter: string, letterIndex: number) => {
         if (letterIndex === currentLetterIndex) {
           return (
@@ -75,6 +76,6 @@ export function CurrentWord({
           return letter
         }
       })}
-    </div>
+    </S.Word>
   )
 }

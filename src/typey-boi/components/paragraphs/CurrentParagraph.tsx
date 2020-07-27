@@ -1,4 +1,5 @@
 import * as React from 'react'
+import * as S from './styles'
 import { FutureWord } from 'components/words/FutureWord'
 import { CompletedWord } from 'components/words/CompletedWord'
 import { CurrentWord } from 'components/words/CurrentWord'
@@ -19,7 +20,7 @@ export function CurrentParagraph(): React.ReactElement {
   const currentLetterIndex = useSelector(selectLetterIndex)
 
   return (
-    <div className="current-paragraph">
+    <S.Paragraph>
       {currentParagraph.map((word: string, wordIndex: number) => {
         if (wordIndex > currentWordIndex) {
           return (
@@ -53,6 +54,6 @@ export function CurrentParagraph(): React.ReactElement {
           )
         }
       })}
-    </div>
+    </S.Paragraph>
   )
 }

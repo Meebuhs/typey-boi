@@ -1,4 +1,5 @@
 import * as React from 'react'
+import * as S from './styles'
 import { COMPLETED_PARAGRAPHS_TO_KEEP } from 'constants/values'
 import { CompletedWord } from 'components/words/CompletedWord'
 import { IState } from 'models/typey-boi'
@@ -13,15 +14,12 @@ export function CompletedParagraphs(): React.ReactElement {
   const currentParagraphIndex = useSelector(selectIndex)
 
   return (
-    <div className="completed-paragraphs">
+    <S.ParagraphWrapper>
       {completedParagraphs.map((paragraph: string[], index: number) => {
         const paragraphIndex =
           currentParagraphIndex - COMPLETED_PARAGRAPHS_TO_KEEP + index
         return (
-          <div
-            className="completed-paragraph"
-            key={`completed-paragraph-${index}`}
-          >
+          <S.Paragraph key={`completed-paragraph-${index}`}>
             {paragraph.map((word: string, wordIndex: number) => {
               return (
                 <CompletedWord
@@ -33,9 +31,9 @@ export function CompletedParagraphs(): React.ReactElement {
                 />
               )
             })}
-          </div>
+          </S.Paragraph>
         )
       })}
-    </div>
+    </S.ParagraphWrapper>
   )
 }

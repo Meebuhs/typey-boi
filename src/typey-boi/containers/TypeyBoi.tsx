@@ -1,4 +1,5 @@
 import * as React from 'react'
+import * as S from './styles'
 import { TextInput } from 'components/TextInput'
 import { LoadText } from 'components/LoadText'
 import { CompletedParagraphs } from 'components/paragraphs/CompletedParagraphs'
@@ -10,11 +11,11 @@ export function TypeyBoi(): React.ReactElement {
   return (
     <>
       <TextInput />
-      <div className="container">
+      <S.Container>
         <CompletedParagraphs />
         <CurrentParagraph />
         <FutureParagraphs />
-      </div>
+      </S.Container>
       <Statistics />
       <LoadText />
     </>

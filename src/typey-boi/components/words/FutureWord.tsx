@@ -1,4 +1,5 @@
 import * as React from 'react'
+import * as S from './styles'
 import { FutureLetter } from 'components/letters/FutureLetter'
 
 interface IProps {
@@ -13,13 +14,13 @@ export function FutureWord({
   paragraphIndex,
 }: IProps): React.ReactElement {
   return (
-    <div className="word">
+    <S.Word>
       {word.split('').map((letter: string, letterIndex: number) => (
         <FutureLetter
           key={`p${paragraphIndex}-w${wordIndex}-l${letterIndex}`}
           letter={letter}
         />
       ))}
-    </div>
+    </S.Word>
   )
 }

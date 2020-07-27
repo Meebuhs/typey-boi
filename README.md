@@ -7,7 +7,7 @@ Built with:
 - Typescript
 - React
 - Redux
-- Sass
+- Styled-components
 - Parcel
 - Electron
 
@@ -15,7 +15,7 @@ Style-checking:
 
 - Prettier
 - Eslint
-- Stylelint & stylelint-config-sass-guidelines
+- Stylelint
 
 ## Usage
 

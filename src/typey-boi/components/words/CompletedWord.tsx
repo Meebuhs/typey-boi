@@ -1,4 +1,5 @@
 import * as React from 'react'
+import * as S from './styles'
 import { CorrectLetter } from 'components/letters/CorrectLetter'
 import { IncorrectLetter } from 'components/letters/IncorrectLetter'
 import { ExtraLetter } from 'components/letters/ExtraLetter'
@@ -21,7 +22,7 @@ export function CompletedWord({
   let error = false
 
   return (
-    <div className="word">
+    <S.Word>
       {word.split('').map((expectedLetter: string, letterIndex: number) => {
         const typedLetter = wordInput[letterIndex]
         const letter =
@@ -76,6 +77,6 @@ export function CompletedWord({
       {error ? (
         <ErrorIndicator key={`error-p${paragraphIndex}-w${wordIndex}`} />
       ) : null}
-    </div>
+    </S.Word>
   )
 }
