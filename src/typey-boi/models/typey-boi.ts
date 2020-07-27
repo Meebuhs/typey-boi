@@ -19,6 +19,7 @@
  * paragraph.
  * @property {number} currentLetterIndex The index of the letter currently being typed in the
  * current word.
+ * @property {IStoredStats[]} pastStats The stored wpm and accuracy statistics for past sessions.
  */
 export interface IState {
   text: string[]
@@ -30,6 +31,7 @@ export interface IState {
   currentParagraphIndex: number
   currentWordIndex: number
   currentLetterIndex: number
+  pastStats: IStoredStats[]
 }
 
 export const initialState: IState = {
@@ -42,4 +44,12 @@ export const initialState: IState = {
   currentParagraphIndex: 0,
   currentWordIndex: 0,
   currentLetterIndex: 0,
+  pastStats: [],
+}
+
+export interface IStoredStats {
+  date: number
+  sessionDuration: number
+  wpm: number
+  accuracy: number
 }

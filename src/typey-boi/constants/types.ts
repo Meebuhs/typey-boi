@@ -1,9 +1,12 @@
+import { IStoredStats } from 'models/typey-boi'
+
 // Action types
 export const ADD_CHARACTER = 'ADD_CHARACTER'
 export const REMOVE_CHARACTER = 'REMOVE_CHARACTER'
 export const COMPLETE_WORD = 'COMPLETE_WORD'
 export const COMPLETE_PARAGRAPH = 'COMPLETE_PARAGRAPH'
 export const SET_TEXT = 'SET_TEXT'
+export const ADD_STATS = 'ADD_STATS'
 
 export interface IAddCharacterAction {
   type: typeof ADD_CHARACTER
@@ -31,12 +34,20 @@ export interface ISetTextAction {
   }
 }
 
+export interface IAddStatsAction {
+  type: typeof ADD_STATS
+  payload: {
+    stats: IStoredStats
+  }
+}
+
 export type Action =
   | IAddCharacterAction
   | IRemoveCharacterAction
   | ICompleteWordAction
   | ICompleteParagraphAction
   | ISetTextAction
+  | IAddStatsAction
 
 // File event types
 export interface IFileReaderEventTarget extends EventTarget {

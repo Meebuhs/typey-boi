@@ -5,6 +5,7 @@ import {
   COMPLETE_WORD,
   COMPLETE_PARAGRAPH,
   SET_TEXT,
+  ADD_STATS,
 } from 'constants/types'
 import { IState, initialState } from 'models/typey-boi'
 import {
@@ -154,6 +155,14 @@ export const reducer = (
         currentParagraphIndex: 0,
         currentWordIndex: 0,
         currentLetterIndex: 0,
+      }
+    }
+    case ADD_STATS: {
+      const newStats = [...state.pastStats]
+      newStats.push(action.payload.stats)
+      return {
+        ...state,
+        pastStats: newStats,
       }
     }
     default:

@@ -20,3 +20,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - Added state persistance with local storage.
  - Added WPM and accuracy metrics.
  - Added AFK detection.
+ - Added statistic tracking over time.
