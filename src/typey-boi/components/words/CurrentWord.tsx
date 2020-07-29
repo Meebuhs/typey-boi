@@ -5,6 +5,7 @@ import { CurrentLetter } from 'components/letters/CurrentLetter'
 import { IncorrectLetter } from 'components/letters/IncorrectLetter'
 import { ExtraLetter } from 'components/letters/ExtraLetter'
 import { FutureLetter } from 'components/letters/FutureLetter'
+import { TypingIndicator } from 'components/TypingIndicator'
 
 interface IProps {
   word: string
@@ -13,6 +14,12 @@ interface IProps {
   currentLetterIndex: number
   wordInput: string
 }
+
+const canvas = document.createElement('canvas')
+const context = canvas.getContext('2d')
+context.font = '1rem Fira Code'
+const metrics = context.measureText('a')
+const characterWidth = metrics.width
 
 export function CurrentWord({
   word,
@@ -76,6 +83,7 @@ export function CurrentWord({
           return letter
         }
       })}
+      <TypingIndicator width={characterWidth * wordInput.length - 1} />
     </S.Word>
   )
 }

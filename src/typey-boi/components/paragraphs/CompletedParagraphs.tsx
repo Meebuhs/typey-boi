@@ -14,7 +14,8 @@ export function CompletedParagraphs(): React.ReactElement {
   const currentParagraphIndex = useSelector(selectIndex)
 
   return (
-    <S.ParagraphWrapper>
+    <S.CompletedParagraphs>
+      <S.CompletedParagraphOverlay />
       {completedParagraphs.map((paragraph: string[], index: number) => {
         const paragraphIndex =
           currentParagraphIndex - COMPLETED_PARAGRAPHS_TO_KEEP + index
@@ -34,6 +35,6 @@ export function CompletedParagraphs(): React.ReactElement {
           </S.Paragraph>
         )
       })}
-    </S.ParagraphWrapper>
+    </S.CompletedParagraphs>
   )
 }

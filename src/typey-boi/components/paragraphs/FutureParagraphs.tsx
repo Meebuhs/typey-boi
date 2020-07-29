@@ -11,7 +11,8 @@ export function FutureParagraphs(): React.ReactElement {
   const currentParagraphIndex = useSelector(selectParagraphIndex)
 
   return (
-    <S.ParagraphWrapper>
+    <S.FutureParagraphs>
+      <S.FutureParagraphOverlay />
       {futureParagraphs.map((paragraph: string[], index: number) => {
         const paragraphIndex = currentParagraphIndex + index + 1
         return (
@@ -29,6 +30,6 @@ export function FutureParagraphs(): React.ReactElement {
           </S.Paragraph>
         )
       })}
-    </S.ParagraphWrapper>
+    </S.FutureParagraphs>
   )
 }

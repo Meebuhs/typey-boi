@@ -1,4 +1,5 @@
 import * as React from 'react'
+import * as S from './styles'
 import { useEffect, useState } from 'react'
 import { IFileReaderEvent, IFileSelectorEvent } from 'constants/types'
 import { useDispatch } from 'react-redux'
@@ -69,12 +70,12 @@ export function LoadText(): React.ReactElement {
   }
 
   return (
-    <button
+    <S.LoadTextButton
       key={'file-select'}
       className={'file-button'}
       onClick={handleFileSelect}
     >
       load text
-    </button>
+    </S.LoadTextButton>
   )
 }

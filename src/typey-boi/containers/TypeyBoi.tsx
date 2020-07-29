@@ -6,10 +6,11 @@ import { CompletedParagraphs } from 'components/paragraphs/CompletedParagraphs'
 import { CurrentParagraph } from 'components/paragraphs/CurrentParagraph'
 import { FutureParagraphs } from 'components/paragraphs/FutureParagraphs'
 import { Statistics } from 'components/Statistics'
+import { ThemeProvider } from 'styled-components'
 
 export function TypeyBoi(): React.ReactElement {
   return (
-    <>
+    <ThemeProvider theme={S.theme}>
       <TextInput />
       <S.Container>
         <CompletedParagraphs />
@@ -18,6 +19,6 @@ export function TypeyBoi(): React.ReactElement {
       </S.Container>
       <Statistics />
       <LoadText />
-    </>
+    </ThemeProvider>
   )
 }

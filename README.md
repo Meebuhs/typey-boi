@@ -1,5 +1,9 @@
 # Typey Boi
 
+<p align="center">
+  <img src="docs/typey-boi.png">
+</p>
+
 Practice typing by reading a book.
 
 Built with:

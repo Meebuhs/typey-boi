@@ -1,4 +1,5 @@
 import * as React from 'react'
+import * as S from './styles'
 import { useKeyPress } from 'hooks/useKeyPress'
 import { currentTime } from 'utils/time'
 import { IState, IStoredStats } from 'models/typey-boi'
@@ -169,7 +170,7 @@ export function Statistics(): React.ReactElement {
   })
 
   return (
-    <div className="statistics">
+    <S.Statistics>
       <div className="wpm">WPM: {wpm.toFixed(2)}</div>
       <div className="accuracy">ACC: {accuracy.toFixed(2)}%</div>
       <div className="past-wpm">
@@ -183,6 +184,6 @@ export function Statistics(): React.ReactElement {
         )}
       </div>
       {afkStats.afk ? <div className="afk">AFK</div> : null}
-    </div>
+    </S.Statistics>
   )
 }

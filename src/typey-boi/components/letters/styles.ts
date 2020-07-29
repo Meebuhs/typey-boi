@@ -1,49 +1,32 @@
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
 
-export const Letter = styled.div`
+const Letter = styled.div`
   font-family: 'Fira Code', Courier, monospace;
   font-size: 1rem;
+  box-sizing: border-box;
 `
 
 export const FutureLetter = styled(Letter)`
-  color: grey;
-`
-
-export const MissedLetter = styled(Letter)`
-  color: grey;
-`
-
-export const CorrectLetter = styled(Letter)`
-  color: green;
-  font-weight: bold;
-`
-
-export const IncorrectLetter = styled(Letter)`
-  color: red;
-  font-weight: bold;
-`
-
-export const ExtraLetter = styled(Letter)`
-  color: red;
-  font-weight: bold;
-`
-
-export const letterIndicator = keyframes`
-    from {
-      background-color: white;
-    }
-  
-    25% {
-      background-color: white;
-    }
-  
-    to {
-      background-color: grey;
-    }
+  color: ${(props) => props.theme.futureLetter};
 `
 
 export const CurrentLetter = styled(Letter)`
-  animation: ${letterIndicator} 0.75s ease-out 0s infinite alternate;
-  background-color: grey;
-  color: grey;
+  position: relative;
+  color: ${(props) => props.theme.currentLetter};
+`
+
+export const MissedLetter = styled(Letter)`
+  color: ${(props) => props.theme.futureLetter};
+`
+
+export const CorrectLetter = styled(Letter)`
+  color: ${(props) => props.theme.correctLetter};
+`
+
+export const IncorrectLetter = styled(Letter)`
+  color: ${(props) => props.theme.incorrectLetter};
+`
+
+export const ExtraLetter = styled(Letter)`
+  color: ${(props) => props.theme.extraLetter};
 `
