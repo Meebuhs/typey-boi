@@ -15,11 +15,8 @@ interface IProps {
   wordInput: string
 }
 
-const canvas = document.createElement('canvas')
-const context = canvas.getContext('2d')
-context.font = '1rem Fira Code'
-const metrics = context.measureText('a')
-const characterWidth = metrics.width
+// Hardcoded width of monospace character
+const characterWidth = 9.6
 
 export function CurrentWord({
   word,
