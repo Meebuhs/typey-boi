@@ -23,6 +23,14 @@ Style-checking:
 
 ## Usage
 
+## Download
+
+Download typey-boi.exe from the [latest release](https://github.com/Meebuhs/typey-boi/releases)
+
+Text is then loaded from a text file; [Calibre](https://calibre-ebook.com/) can be used to convert your ebooks to .txt.
+
+It's a good idea to delete all the front matter from the start of the text file, typing out a table of contents isn't the most interesting thing in the world.
+
 ## Development
 
 ```
