@@ -176,9 +176,7 @@ export function Statistics(): React.ReactElement {
 
   return (
     <S.Statistics>
-      {afkStats.afk ? <div className="afk">AFK</div> : null}
-
-      <table>
+      <table style={{textAlign: "center"}}>
         <thead>
           <tr>
             <th></th>
@@ -206,6 +204,7 @@ export function Statistics(): React.ReactElement {
           </tr>
         </tbody>
       </table>
+      <S.AfkIndicator visible={afkStats.afk}>Typing Stopped</S.AfkIndicator>
     </S.Statistics>
   )
 }

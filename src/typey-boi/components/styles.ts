@@ -48,6 +48,29 @@ export const Statistics = styled.div`
   z-index: 3;
 `
 
+export interface AfkIndicatorProps {
+  visible: boolean
+}
+
+export const AfkIndicator = styled.div<AfkIndicatorProps>`
+  background: ${(props) => props.theme.primaryHighlight};
+  color: ${(props) => props.theme.background};
+  font-family: 'Noto Sans', Helvetica, sans-serif;
+  font-size: 1em;
+  font-weight: bold;
+  margin: 0 auto;
+  padding: 0.5em 1.5em;
+  border: 2px solid ${(props) => props.theme.primaryHighlight};
+  border-radius: 3px;
+  transition: opacity 1s;
+  opacity: ${(props) => (props.visible ? 1 : 0)};
+  position: fixed;
+  bottom: 3em;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+`
+
 export const LoadTextButton = styled.button`
   background: ${(props) => props.theme.background};
   color: ${(props) => props.theme.primaryHighlight};
