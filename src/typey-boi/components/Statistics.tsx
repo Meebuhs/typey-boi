@@ -169,21 +169,43 @@ export function Statistics(): React.ReactElement {
     }
   })
 
+  const getDateString = (date: number): string => {
+    const parsedDate = new Date(date)
+    return `${parsedDate.getDate()}/${parsedDate.getMonth() + 1}`
+  }
+
   return (
     <S.Statistics>
-      <div className="wpm">WPM: {wpm.toFixed(2)}</div>
-      <div className="accuracy">ACC: {accuracy.toFixed(2)}%</div>
-      <div className="past-wpm">
-        PAST WPM:{' '}
-        {pastStats.map((session: IStoredStats) => `${session.wpm.toFixed(2)} `)}
-      </div>
-      <div className="past-accuracy">
-        PAST ACC:{' '}
-        {pastStats.map(
-          (session: IStoredStats) => `${session.accuracy.toFixed(2)} `
-        )}
-      </div>
       {afkStats.afk ? <div className="afk">AFK</div> : null}
+
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            {pastStats.slice(-5).map((session: IStoredStats) => {
+              return <th key={session.date}>{getDateString(session.date)}</th>
+            })}
+            <th>Now</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>WPM: </td>
+            {pastStats.slice(-5).map((session: IStoredStats) => (
+              <td key={`${session.date}.wpm`}>{session.wpm.toFixed(2)}</td>
+            ))}
+            <td>{wpm.toFixed(2)}</td>
+          </tr>
+
+          <tr>
+            <td>ACC: </td>
+            {pastStats.slice(-5).map((session: IStoredStats) => (
+              <td key={`${session.date}.wpm`}>{session.accuracy.toFixed(2)}</td>
+            ))}
+            <td>{accuracy.toFixed(2)}</td>
+          </tr>
+        </tbody>
+      </table>
     </S.Statistics>
   )
 }

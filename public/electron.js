@@ -6,7 +6,7 @@ const url = require('url')
 let mainWindow;
 
 function createWindow() {
-    mainWindow = new BrowserWindow({width: 1280, height: 720});
+    mainWindow = new BrowserWindow({width: 1500, height: 800});
     mainWindow.setMenuBarVisibility(false)
 
     mainWindow.loadURL(url.format({
