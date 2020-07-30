@@ -50,4 +50,5 @@ export const Paragraph = styled.div`
   flex-wrap: wrap;
   margin: 0.5em 100px;
   max-width: 1300px;
+  outline: none;
 `

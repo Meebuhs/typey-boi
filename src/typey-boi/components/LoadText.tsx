@@ -59,6 +59,7 @@ export function LoadText(): React.ReactElement {
       fileReader.addEventListener('load', readText)
       fileReader.readAsText(event.target.files[0])
       setState({ ...state, fileName: event.target.files[0].name })
+      document.getElementById("current-paragraph").focus()
     }
   }
 

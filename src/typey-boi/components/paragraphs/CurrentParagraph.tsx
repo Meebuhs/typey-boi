@@ -20,7 +20,7 @@ export function CurrentParagraph(): React.ReactElement {
   const currentLetterIndex = useSelector(selectLetterIndex)
 
   return (
-    <S.Paragraph>
+    <S.Paragraph id={'current-paragraph'} tabIndex={0}>
       {currentParagraph.map((word: string, wordIndex: number) => {
         if (wordIndex > currentWordIndex) {
           return (
