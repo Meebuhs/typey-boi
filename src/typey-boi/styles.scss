@@ -12,4 +12,41 @@ body {
 
 #root {
   height: 100%;
+  font-size: 16px;
+}
+
+@font-face {
+  font-family: 'Fira Code';
+  src: url('../resources/fonts/FiraCode/FiraCode-Regular.woff') format('woff'),
+    url('../resources/fonts/FiraCode/FiraCode-Regular.woff2') format('woff2'),
+    url('../resources/fonts/FiraCode/FiraCode-Regular.ttf') format('ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Fira Code';
+  src: url('../resources/fonts/FiraCode/FiraCode-Bold.woff') format('woff'),
+    url('../resources/fonts/FiraCode/FiraCode-Bold.woff2') format('woff2'),
+    url('../resources/fonts/FiraCode/FiraCode-Bold.ttf') format('ttf');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('../resources/fonts/NotoSans/NotoSans-Regular.woff') format('woff'),
+    url('../resources/fonts/NotoSans/NotoSans-Regular.woff2') format('woff2'),
+    url('../resources/fonts/NotoSans/NotoSans-Regular.ttf') format('ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('../resources/fonts/NotoSans/NotoSans-Bold.woff') format('woff'),
+    url('../resources/fonts/NotoSans/NotoSans-Bold.woff2') format('woff2'),
+    url('../resources/fonts/NotoSans/NotoSans-Bold.ttf') format('ttf');
+  font-weight: bold;
+  font-style: normal;
 }

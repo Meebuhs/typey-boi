@@ -11,6 +11,7 @@
       "hooks/*": ["typey-boi/hooks/*"],
       "models/*": ["typey-boi/models/*"],
       "reducers/*": ["typey-boi/reducers/*"],
+      "resources/*": ["resources/*"],
       "store/*": ["typey-boi/store/*"],
       "utils/*": ["utils/*"]
     }

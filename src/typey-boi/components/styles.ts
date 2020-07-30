@@ -51,6 +51,7 @@ export const Statistics = styled.div`
 export const LoadTextButton = styled.button`
   background: ${(props) => props.theme.background};
   color: ${(props) => props.theme.primaryHighlight};
+  font-family: 'Noto Sans', Helvetica, sans-serif;
   font-size: 1em;
   font-weight: bold;
   margin: 1em;

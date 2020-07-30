@@ -29,6 +29,7 @@
     "hooks": "./src/typey-boi/hooks",
     "models": "./src/typey-boi/models",
     "reducers": "./src/typey-boi/reducers",
+    "resources": "./src/resources",
     "store": "./src/typey-boi/store",
     "utils": "./src/utils"
   },
