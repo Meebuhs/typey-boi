@@ -176,7 +176,7 @@ export function Statistics(): React.ReactElement {
 
   return (
     <S.Statistics>
-      <table style={{textAlign: "center"}}>
+      <table style={{ textAlign: 'center' }}>
         <thead>
           <tr>
             <th></th>
