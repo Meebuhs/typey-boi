@@ -133,6 +133,7 @@ export const reducer = (
         .replace(/\r/g, '')
         .replace(/’/g, "'")
         .replace(/—/g, '-')
+        .replace(/…/g, '...')
         .split(/\n/)
         .filter((paragraph) => paragraph !== '')
 
