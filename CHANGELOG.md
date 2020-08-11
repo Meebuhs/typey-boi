@@ -6,8 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Fixed
- - Fixed more untypeable characters
-
+ - Fixed more untypeable characters.
+ - Fixed bug where final few paragraphs couldn't be finished.
+ 
 ## [1.0.0] - 2020-07-30
 ### Added
  - Base functionality includes:

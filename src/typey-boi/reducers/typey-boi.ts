@@ -101,9 +101,16 @@ export const reducer = (
         const newFutureParagraphs = [...futureParagraphs]
         const newCurrentParagraph = newFutureParagraphs.shift()
 
-        newFutureParagraphs.push(
-          text[currentParagraphIndex + FUTURE_PARAGRAPHS_TO_LOAD + 1].split(' ')
-        )
+        if (
+          text.length >
+          currentParagraphIndex + FUTURE_PARAGRAPHS_TO_LOAD + 1
+        ) {
+          newFutureParagraphs.push(
+            text[currentParagraphIndex + FUTURE_PARAGRAPHS_TO_LOAD + 1].split(
+              ' '
+            )
+          )
+        }
 
         const newCompletedInputs = [...completedInputs]
         if (newCompletedInputs.length === COMPLETED_PARAGRAPHS_TO_KEEP) {
