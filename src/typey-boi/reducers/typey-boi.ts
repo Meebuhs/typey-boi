@@ -129,11 +129,19 @@ export const reducer = (
       }
     }
     case SET_TEXT: {
+      const characterReplacements = {
+        '\r': '',
+        '’': "'",
+        '—': '-',
+        '…': '...',
+        '“': '"',
+        '”': '"',
+      }
+      const reg = new RegExp(Object.keys(characterReplacements).join('|'), 'g')
       const newText = action.payload.text
-        .replace(/\r/g, '')
-        .replace(/’/g, "'")
-        .replace(/—/g, '-')
-        .replace(/…/g, '...')
+        .replace(reg, (matchedCharacter) => {
+          return characterReplacements[matchedCharacter]
+        })
         .split(/\n/)
         .filter((paragraph) => paragraph !== '')
 
